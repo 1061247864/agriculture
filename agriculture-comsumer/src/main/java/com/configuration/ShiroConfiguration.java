@@ -31,13 +31,10 @@ public class ShiroConfiguration {
     {
     	this.shiroProperty=shiroProperty;
     }
-	@Bean
-	
-	
+	/*@Bean
 	public FilterRegistrationBean delegatingFilterProxy()
 	{
 		DelegatingFilterProxy delegatingFilterProxy = new DelegatingFilterProxy();
-/*		delegatingFilterProxy.setTargetBeanName("shiroFileter");*/
 		delegatingFilterProxy.setTargetFilterLifecycle(true);
 		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 		filterRegistrationBean.setName("shiroFileter");
@@ -47,7 +44,7 @@ public class ShiroConfiguration {
 		
 		
 		return filterRegistrationBean;
-	}
+	}*/
 	@Bean
 	public DefaultWebSessionManager webSessionManager() {
 		DefaultWebSessionManager DefaultWebSessionManager =shiroProperty.getSession();
@@ -72,13 +69,13 @@ public class ShiroConfiguration {
 	}
 	
 	@Bean
-	public ShiroFilterFactoryBean shiroFileter(DefaultWebSecurityManager webSecurityManager)
+	public ShiroFilterFactoryBean shiroFileter()
 	{
 		ShiroFilterFactoryBean ShiroFilterFactoryBean = shiroProperty.getShiroFilter();
 		 Map<String,Filter> filterMap=new HashMap<String,Filter>();
 		 filterMap.put("rolesOrFilter",new RolesOrFilter());
 		ShiroFilterFactoryBean.setFilters(filterMap);
-		ShiroFilterFactoryBean.setSecurityManager(webSecurityManager);
+		ShiroFilterFactoryBean.setSecurityManager(webSecurityManager());
 		Map<String,String> map = new HashMap<String,String>();
 	/*	map.put("/findUsers","rolesOrFilter[superadmin,admin]");
 		map.put("/findAdmins","rolesOrFilter[superadmin,admin]");
@@ -102,8 +99,8 @@ public class ShiroConfiguration {
 		map.put("/pre/time/**","anon");
 		map.put("/pre/css/**","anon");
 		map.put("/**","authc");*/
-	  map.put("/**", "auth");
-		ShiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+	 /* map.put("/**", "anon");
+		ShiroFilterFactoryBean.setFilterChainDefinitionMap(map);*/
 		return ShiroFilterFactoryBean;
 	}
 

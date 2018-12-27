@@ -9,6 +9,10 @@ public class ShiroProperty {
  private ShiroFilterFactoryBean shiroFilter;
 private DefaultWebSessionManager session;
 public ShiroFilterFactoryBean getShiroFilter() {
+	if(shiroFilter==null)
+	{
+		shiroFilter = new ShiroFilterFactoryBean();
+	}
 	return shiroFilter;
 }
 public void setShiroFilter(ShiroFilterFactoryBean shiroFilter) {
