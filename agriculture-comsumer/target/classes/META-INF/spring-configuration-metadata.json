@@ -1,0 +1,22 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.property.ShiroProperty",
+      "name": "shiro",
+      "type": "com.property.ShiroProperty"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.property.ShiroProperty",
+      "name": "shiro.session",
+      "type": "org.apache.shiro.web.session.mgt.DefaultWebSessionManager"
+    },
+    {
+      "sourceType": "com.property.ShiroProperty",
+      "name": "shiro.shiro-filter",
+      "type": "org.apache.shiro.spring.web.ShiroFilterFactoryBean"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: agriculture-order-provider
+server:
+  port: 7002
+
+eureka:
+  instance:
+    prefer-ip-address: true    hostname: localhost
+  client:
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka-server.com:8761

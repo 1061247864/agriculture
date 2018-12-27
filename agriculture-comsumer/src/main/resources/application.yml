@@ -1,0 +1,12 @@
+server:
+  port: 8088
+
+spring:  application:    name: consumer  redis:    port: 6379
+    host: localhost
+    database: 0
+eureka:  client:    service-url:      defaultZone: http://localhost:8761/eureka/
+shiro:  session:    global-session-timeout: 1200000
+  shiro-filter:    login-url: a
+    success-url: a
+    filter-chain-definition-map:      /**: auth
+      
