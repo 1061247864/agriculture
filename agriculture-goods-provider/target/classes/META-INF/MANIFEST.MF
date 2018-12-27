@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: agriculture-goods-provider
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Administrator
+Implementation-Vendor-Id: com
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-cloud/agricultur
+ e/agriculture-goods-provider
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
