@@ -1,6 +1,11 @@
 package com.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.pojo.User;
+
 
 public interface UserMapper {
 
@@ -15,4 +20,5 @@ public interface UserMapper {
 	int updateByPrimaryKeySelective(User record);
 
 	int updateByPrimaryKey(User record);
+	List<User> findAll(@Param("type") Integer type ,@Param("user")User user );
 }
