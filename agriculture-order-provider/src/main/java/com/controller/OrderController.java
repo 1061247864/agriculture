@@ -4,9 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pojo.Order;
@@ -19,14 +18,30 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@GetMapping("getOrder/{id}/{userId}/{countPrice}/{createdate}/{status}")
-	public List<Order> selectOrder(@PathVariable(value="id",required=false) String id,
-			@PathVariable(value="userId",required=false) String userId,
-			@PathVariable(value="countPrice",required=false) String countPrice,
-			@PathVariable(value="createdate",required=false) String createdate,
-			@PathVariable(value="status",required=false) String status
+	@RequestMapping("getOrder")
+	public List<Order> selectOrder(@RequestParam(value="id",required=false) String id,
+			@RequestParam(value="userId",required=false) String userId,
+			@RequestParam(value="countPrice",required=false) String countPrice,
+			@RequestParam(value="createdate",required=false) String createdate,
+			@RequestParam(value="status",required=false) String status
 			) {
-		Order order = new Order(Integer.valueOf(id), Integer.valueOf(userId), countPrice,null, Integer.valueOf(status));
+		int intId = 0;
+		int intUserId = 0;
+		int intStatue = -1;
+		Date date = null;
+		if (id!=null) {
+			intId = Integer.valueOf(id);
+		}
+		if (userId!=null) {
+			intUserId = Integer.valueOf(userId);
+		}
+		if (createdate!=null) {
+			date=null;
+		}
+		if (status!=null) {
+			intStatue = Integer.valueOf(status);
+		}
+		Order order = new Order(intId, intUserId, countPrice,date, intStatue);
 		return orderService.getOrderList(order);
 		
 	}

@@ -228,10 +228,10 @@
 	u.`user_id` uid,u.`user_code`,u.`email`,u.`phone`,u.`age`,u.`sex`,u.`user_name`,u.`image`
     from `order` o,`user` u
     WHERE o.`user_id`=u.`user_id`
-    <if test="order.orderId != null and order.orderId != '' ">
+    <if test="order.orderId != null and order.orderId != 0 ">
     and o.`order_id` = #{order.orderId}
     </if>
-    <if test="order.userId != null and order.userId != '' ">
+    <if test="order.userId != null and order.userId != 0 ">
     and o.`user_id` = #{order.userId}
     </if>
     <if test="order.countPrice != null and order.countPrice != '' ">
@@ -240,7 +240,7 @@
     <if test="order.createdate != null and order.createdate != '' ">
     and o.`createDate` = #{order.createdate}
     </if>
-    <if test="order.status != null and order.status != '' ">
+    <if test="order.status != null and order.status != -1 ">
     and o.`status` = #{order.status}
     </if>
   </select>
