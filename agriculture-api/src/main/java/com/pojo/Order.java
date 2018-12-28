@@ -2,6 +2,7 @@ package com.pojo;
 
 import java.util.Date;
 
+
 public class Order {
     private Integer orderId;
 
@@ -9,11 +10,33 @@ public class Order {
 
     private String countPrice;
 
+    //@DateTimeFormat(pattern="")
     private Date createdate;
 
     private Integer status;
+    
+    private User user;
+    
+    
 
-    public Integer getOrderId() {
+    public Order(Integer orderId, Integer userId, String countPrice, Date createdate, Integer status) {
+		super();
+		this.orderId = orderId;
+		this.userId = userId;
+		this.countPrice = countPrice;
+		this.createdate = createdate;
+		this.status = status;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getOrderId() {
         return orderId;
     }
 
