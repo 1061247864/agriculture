@@ -1,16 +1,16 @@
 package com;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
-@EnableFeignClients(basePackages= {"com.service","com.order.service"})
-@EnableEurekaClient
-/*@EnableCaching*/
 @SpringBootApplication
-public class ConsumerApp {
+@EnableEurekaClient
+@MapperScan("com.mapper")
+public class OrderApp {
 	public static void main(String[] args) {
-		SpringApplication.run(ConsumerApp.class, args);
+		SpringApplication.run(OrderApp.class, args);
 	}
+
 }

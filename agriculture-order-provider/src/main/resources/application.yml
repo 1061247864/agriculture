@@ -1,13 +1,28 @@
 spring:
   application:
-    name: agriculture-order-provider
-server:
-  port: 7002
+    name: goodsprovider
+  datasource:
+    username: root
+    password: 123
+    url: jdbc:mysql://localhost:3306/intelligentagriculturedb
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
 
+
+mybatis:
+  type-aliases-package: com.pojo
+ribbon:
+  eager-load:
+    enabled: true
+
+server:
+  port: 7001
+  
+  
 eureka:
-  instance:
-    prefer-ip-address: true    hostname: localhost
   client:
-    fetch-registry: false
+    eureka-server-connect-timeout-seconds: 5000
     service-url:
-      defaultZone: http://eureka-server.com:8761
+      defaultZone: http://localhost:8761/eureka/
+
+      
