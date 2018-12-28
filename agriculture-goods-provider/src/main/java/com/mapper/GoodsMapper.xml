@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.GoodsMapper">
+	<resultMap id="BaseResultMap" type="com.pojo.Goods">
+		<id column="good_id" jdbcType="INTEGER" property="goodId" />
+		<result column="good_name" jdbcType="VARCHAR"
+			property="goodName" />
+		<result column="type_id" jdbcType="INTEGER" property="typeId" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="price" jdbcType="VARCHAR" property="price" />
+		<result column="company" jdbcType="VARCHAR" property="company" />
+		<result column="context" jdbcType="VARCHAR" property="context" />
+		<result column="sum" jdbcType="INTEGER" property="sum" />
+		<result column="sum_back" jdbcType="INTEGER" property="sumBack" />
+		<result column="shop_id" jdbcType="INTEGER" property="shopId" />
+	</resultMap>
+
+	<select id="show" resultMap="BaseResultMap" >
+		select * from goods where 1=1
+		<if test="goodsname!=null and goodsname!=''">
+			and good_name like concat('%',#{goodsname},'%')
+		</if>
+		<if test="typeid !=null and typeid!=''">
+			and type_id=#{typeid}
+		</if>
+		<if test="shopid !=null and shopid!=''">
+			and shop_id=#{shopid}
+		</if>
+	</select>
+</mapper>

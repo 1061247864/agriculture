@@ -15,6 +15,12 @@ public class Goods {
 
     private String context;
 
+    private Integer sum;
+
+    private Integer sumBack;
+
+    private Integer shopId;
+
     public Integer getGoodId() {
         return goodId;
     }
@@ -69,5 +75,29 @@ public class Goods {
 
     public void setContext(String context) {
         this.context = context == null ? null : context.trim();
+    }
+
+    public Integer getSum() {
+        return sum;
+    }
+
+    public void setSum(Integer sum) {
+        this.sum = sum;
+    }
+
+    public Integer getSumBack() {
+        return sumBack;
+    }
+
+    public void setSumBack(Integer sumBack) {
+        this.sumBack = sumBack;
+    }
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
     }
 }
