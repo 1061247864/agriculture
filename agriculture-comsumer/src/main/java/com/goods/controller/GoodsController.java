@@ -21,4 +21,9 @@ public class GoodsController {
 			@RequestParam(value="shopid",required=false) Integer shopid) {
 		return goodsClientService.show(goodsname, typeid, shopid);
 	}
+	
+	@RequestMapping("/insert")
+	public int insert(@RequestParam("goods") Goods goods) {
+		return goodsClientService.insert(goods);
+	}
 }

@@ -7,16 +7,15 @@ import org.apache.ibatis.annotations.Param;
 
 import com.pojo.Goods;
 
-
 @Mapper
 public interface GoodsMapper {
-	
-	int insert(Goods goods);
-	
-	int del(Integer goods);
 
-    int update(Goods goods);
-	
-	List<Goods> show(@Param("goodsname") String goodsname, @Param("typeid") Integer typeid, @Param("shopid") Integer shopid);
+	public int insert(@Param("goods") Goods goods);
+
+	public int del(@Param("goodsid") Integer goodsid);
+
+	public int update(@Param("goods") Goods goods);
+
+	public List<Goods> show(@Param("goods") Goods goods);
 
 }

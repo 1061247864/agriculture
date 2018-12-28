@@ -1,13 +1,11 @@
 package com.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageInfo;
 import com.pojo.Goods;
 import com.service.GoodsService;
 
@@ -18,8 +16,13 @@ public class GoodsController {
 	private GoodsService goodsService;
 
 	@RequestMapping("/get")
-	public List<Goods> show(@RequestParam(value="goodsname",required=false) String goodsname, @RequestParam(value="typeid",required=false) Integer typeid,
-			@RequestParam(value="shopid",required=false) Integer shopid) {
-		return goodsService.show(goodsname, typeid, shopid);
+	public PageInfo<Goods> showGoods(@RequestParam(value = "currentPage", required = false) Integer currentPage,
+			Goods goods) {
+		return goodsService.showGoods(currentPage, goods);
+	}
+
+	@RequestMapping("/insert")
+	public int insert(@RequestParam("goods") Goods goods) {
+		return goodsService.insert(goods);
 	}
 }

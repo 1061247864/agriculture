@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
-@EnableFeignClients(basePackages= {"com.service","com.order.service"})
+@EnableFeignClients(basePackages= {"com.service","com.order.service","com.goods.service"})
 @EnableEurekaClient
 /*@EnableCaching*/
 @SpringBootApplication

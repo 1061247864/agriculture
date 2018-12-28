@@ -9,7 +9,7 @@ public class Goods {
 
     private Integer status;
 
-    private String price;
+    private double price;
 
     private String company;
 
@@ -53,12 +53,12 @@ public class Goods {
         this.status = status;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
-        this.price = price == null ? null : price.trim();
+    public void setPrice(double price) {
+        this.price = price ;
     }
 
     public String getCompany() {
