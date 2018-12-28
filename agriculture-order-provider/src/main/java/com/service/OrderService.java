@@ -1,9 +1,10 @@
 package com.service;
 
-import java.util.List;
 
-
+import com.github.pagehelper.PageInfo;
 import com.pojo.Order;
 public interface OrderService {
-	List<Order> getOrderList(Order order);
+	PageInfo<Order> getOrderList(Integer currentPage,Order order);
+	int delOrderById(Integer id);
+	int addOrder(Order order);
 }

@@ -11,6 +11,7 @@ spring:
 
 mybatis:
   type-aliases-package: com.pojo
+  configuration:    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 ribbon:
   eager-load:
     enabled: true

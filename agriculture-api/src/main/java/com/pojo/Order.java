@@ -19,7 +19,11 @@ public class Order {
     
     
 
-    public Order(Integer orderId, Integer userId, String countPrice, Date createdate, Integer status) {
+    public Order() {
+		super();
+	}
+
+	public Order(Integer orderId, Integer userId, String countPrice, Date createdate, Integer status) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;

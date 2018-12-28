@@ -19,11 +19,12 @@ public interface OrderMapper {
     int insertSelective(Order record);
 
     List<Order> getOrderList(@Param("order") Order order);
-/*    List<Order> selectByExample(OrderExample example);
-*/
+    
+/*  List<Order> selectByExample(OrderExample example);*/
+    
     Order selectByPrimaryKey(Integer orderId);
-/*
-    int updateByExampleSelective(@Param("record") Order record, @Param("example") OrderExample example);
+    
+/*	int updateByExampleSelective(@Param("record") Order record, @Param("example") OrderExample example);
 
     int updateByExample(@Param("record") Order record, @Param("example") OrderExample example);*/
 

@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.mapper.OrderMapper;
 import com.pojo.Order;
 import com.service.OrderService;
 
@@ -12,13 +15,27 @@ import com.service.OrderService;
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
-	private OrderService orderService;
+	private OrderMapper orderMapper;
 	
 	
 	@Override
-	public List<Order> getOrderList(Order order) {
+	public PageInfo<Order> getOrderList(Integer currentPage,Order order) {
+		PageHelper.startPage(currentPage, 2);
+		List<Order> orderList = orderMapper.getOrderList(order);
+		PageInfo<Order> pageInfo = new PageInfo<>(orderList);
+		return pageInfo;
+	}
+
+	@Override
+	public int delOrderById(Integer id) {
 		// TODO Auto-generated method stub
-		return orderService.getOrderList(order);
+		return orderMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int addOrder(Order order) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
