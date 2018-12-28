@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
 
-import com.controller.DateFormateConverter;
+import com.util.DateFormateConverter;
 
 
 @ConfigurationProperties(prefix="converter.date")
