@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: agriculture-zuul
+ 
+ribbon:  eager-load:    enabled: true
+
+server:
+  port: 4433
+  
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+zuul:  ignored-services: "*"
+  routes:     userprovider: userv/**
+        

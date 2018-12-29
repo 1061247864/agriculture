@@ -13,6 +13,7 @@
   	<module>agriculture-order-provider</module>
   	<module>agriculture-goods-provider</module>
   	<module>agriculture-pay-provider</module>
+  	<module>agriculture-zuul</module>
   </modules>
   <properties>
   <java.version>1.8</java.version>
