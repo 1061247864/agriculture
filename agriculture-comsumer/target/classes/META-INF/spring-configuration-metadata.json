@@ -2,12 +2,22 @@
   "hints": [],
   "groups": [
     {
+      "sourceType": "com.configuration.ConverterConfiguration",
+      "name": "converter.date",
+      "type": "com.configuration.ConverterConfiguration"
+    },
+    {
       "sourceType": "com.property.ShiroProperty",
       "name": "shiro",
       "type": "com.property.ShiroProperty"
     }
   ],
   "properties": [
+    {
+      "sourceType": "com.configuration.ConverterConfiguration",
+      "name": "converter.date.format",
+      "type": "java.util.List<java.lang.String>"
+    },
     {
       "sourceType": "com.property.ShiroProperty",
       "name": "shiro.session",
