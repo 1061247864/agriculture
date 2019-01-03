@@ -69,20 +69,7 @@
   <sql id="Base_Column_List">
     per_id, per_name, pre_menu_name, pre_menu_url, create_Date
   </sql>
-  <select id="selectByExample" parameterType="com.pojo.PermissionExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -93,12 +80,7 @@
     delete from permission
     where per_id = #{perId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pojo.PermissionExample">
-    delete from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+  
   <insert id="insert" parameterType="com.pojo.Permission">
     insert into permission (per_id, per_name, pre_menu_name, 
       pre_menu_url, create_Date)
@@ -142,12 +124,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pojo.PermissionExample" resultType="java.lang.Long">
-    select count(*) from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
+  
   <update id="updateByExampleSelective" parameterType="map">
     update permission
     <set>
