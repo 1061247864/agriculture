@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public User findUserByCode(String userCode) {
+		return userMapper.findUserByCode(userCode);
+	}
+
 }

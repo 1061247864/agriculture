@@ -5,6 +5,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pojo.User;
 
@@ -14,5 +15,8 @@ public interface UserClientService {
 	@Cacheable(key="#p0",value="findUserById")
 	@GetMapping("/user/get/{id}")
 	public User findUserById(@PathVariable("id")String id);
-
+	@PostMapping("user/findUserByCode")
+   public User findUserByCode (String userCode);
+	
+	
 }

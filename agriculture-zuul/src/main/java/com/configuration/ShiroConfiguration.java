@@ -45,31 +45,31 @@ public class ShiroConfiguration {
 	 * 
 	 * return filterRegistrationBean; }
 	 */
-	@Bean
+/*	@Bean
 	@ConfigurationProperties(prefix = "shiro.redis")
 	public RedisManager shiroRedisManager() {
 		return new RedisManager();
 
-	}
+	}*/
 
 	@Bean
-	public DefaultWebSessionManager webSessionManager(RedisCacheManager redisCacheManager) {
+	public DefaultWebSessionManager webSessionManager(/*RedisCacheManager redisCacheManager*/) {
 		DefaultWebSessionManager defaultWebSessionManager = shiroProperty.getSession();
 		if(null==defaultWebSessionManager) {
 			defaultWebSessionManager = new DefaultWebSessionManager();
 			
 		}
-		defaultWebSessionManager.setCacheManager(redisCacheManager);
+		/*defaultWebSessionManager.setCacheManager(redisCacheManager);
 		 RedisSessionDAO redisSessionDAO = new  RedisSessionDAO();
 		 redisSessionDAO.setRedisManager(redisCacheManager.getRedisManager());
-		 defaultWebSessionManager.setSessionDAO(redisSessionDAO);
+		 defaultWebSessionManager.setSessionDAO(redisSessionDAO);*/
 		return defaultWebSessionManager;
 	}
 
 	@Bean
-	public DefaultWebSecurityManager webSecurityManager(RedisCacheManager redisCacheManager,DefaultWebSessionManager defaultWebSessionManager) {
+	public DefaultWebSecurityManager webSecurityManager(/*RedisCacheManager redisCacheManager,*/DefaultWebSessionManager defaultWebSessionManager) {
 		DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
-		defaultWebSecurityManager.setCacheManager(redisCacheManager);
+	/*	defaultWebSecurityManager.setCacheManager(redisCacheManager);*/
 		defaultWebSecurityManager.setRealm(myRealm());
 		defaultWebSecurityManager.setSessionManager(defaultWebSessionManager);
 		return defaultWebSecurityManager;
@@ -115,7 +115,7 @@ public class ShiroConfiguration {
 		 */
 		return ShiroFilterFactoryBean;
 	}
-
+/*
 	@Bean
 	public RedisCacheManager shiroRedsiCacheManager(RedisManager redisManager,ShiroRedisSerializeble shiroRedisSerializeble) {
 		RedisCacheManager redisCacheManager = new RedisCacheManager();
@@ -124,7 +124,7 @@ public class ShiroConfiguration {
 		return redisCacheManager;
 
 	}
-	
+	*/
 	
 	public ShiroProperty getShiroProperty() {
 		return shiroProperty;

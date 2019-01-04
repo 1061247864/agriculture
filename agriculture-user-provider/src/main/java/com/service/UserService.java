@@ -7,4 +7,5 @@ public interface UserService {
    public User findUserById(Integer id);
    PageInfo<User> findAdmins(Integer currentPage, User user);
    public PageInfo<User> findUsers(Integer currentPage, User user);
+   public User findUserByCode(String userCode);
 }

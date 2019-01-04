@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UserMapper">
-	<resultMap id="BaseResultMap" type="com.pojo.User">
-		<id column="user_id" jdbcType="INTEGER" property="userId" />
-		<result column="user_code" jdbcType="VARCHAR"
-			property="userCode" />
-		<result column="password" jdbcType="VARCHAR"
-			property="password" />
-		<result column="email" jdbcType="VARCHAR" property="email" />
-		<result column="phone" jdbcType="VARCHAR" property="phone" />
-		<result column="age" jdbcType="INTEGER" property="age" />
-		<result column="sex" jdbcType="INTEGER" property="sex" />
-		<result column="createDate" jdbcType="TIMESTAMP"
-			property="createdate" />
-		<result column="last_Login" jdbcType="TIMESTAMP"
-			property="lastLogin" />
-		<result column="user_name" jdbcType="VARCHAR"
-			property="userName" />
-		<result column="status" jdbcType="INTEGER" property="status" />
-		<result column="vip_id" jdbcType="INTEGER" property="vipId" />
-		<result column="image" jdbcType="VARCHAR" property="image" />
-	</resultMap>
+	 <resultMap id="BaseResultMap" type="com.pojo.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="last_Login" jdbcType="TIMESTAMP" property="lastLogin" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="vip_id" jdbcType="INTEGER" property="vipId" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+  </resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria"
@@ -370,5 +366,12 @@
 			and	user_code = #{user.userCode}
 			</if>
 		</where> 
+	</select>
+	<select id="findUserByCode"
+		 resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where user_code = #{userCode}
 	</select>
 </mapper>

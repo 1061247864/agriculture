@@ -1,7 +1,7 @@
-spring:
-  application:
-    name: agriculture-zuul  redis:    host: localhost
-    port: 6379
+#spring:
+#  application:
+#    name: agriculture-zuul#  redis:#    host: localhost
+#    port: 6379
  
 ribbon:  eager-load:    enabled: true
 
@@ -11,7 +11,7 @@ server:
 shiro: 
   shiroFilter: 
     filterChainDefinitionMap: 
-      /**: authc
+      /**: anon
   redis: 
     port: 6379
     host: 127.0.0.1
@@ -23,4 +23,4 @@ eureka:
 
 zuul:  ignored-services: "*"
   routes:     userprovider: userv/**
-    
+         

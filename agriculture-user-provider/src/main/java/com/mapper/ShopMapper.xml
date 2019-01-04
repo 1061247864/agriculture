@@ -73,20 +73,7 @@
   <sql id="Base_Column_List">
     shop_id, shop_name, user_id, address, phone, createDate, status, context, score
   </sql>
-  <select id="selectByExample" parameterType="com.pojo.ShopExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from shop
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -97,12 +84,7 @@
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pojo.ShopExample">
-    delete from shop
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+
   <insert id="insert" parameterType="com.pojo.Shop">
     insert into shop (shop_id, shop_name, user_id, 
       address, phone, createDate, 
@@ -174,12 +156,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pojo.ShopExample" resultType="java.lang.Long">
-    select count(*) from shop
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
+  
   <update id="updateByExampleSelective" parameterType="map">
     update shop
     <set>
@@ -272,4 +249,14 @@
       score = #{score,jdbcType=DOUBLE}
     where shop_id = #{shopId,jdbcType=INTEGER}
   </update>
+  <!-- 11111111111111111111111111111111111111 -->
+  
+   <select id="findShops" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop  where  1=1
+     <if test="shopName != null and shopName != '' ">
+       and  shop_name = #{shopName,jdbcType=VARCHAR} 
+      </if>
+  </select>
 </mapper>

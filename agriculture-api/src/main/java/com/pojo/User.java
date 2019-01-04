@@ -1,10 +1,8 @@
 package com.pojo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-@SuppressWarnings("serial")
-public class User implements Serializable{
+public class User {
     private Integer userId;
 
     private String userCode;
@@ -30,6 +28,8 @@ public class User implements Serializable{
     private Integer vipId;
 
     private String image;
+
+    private String salt;
 
     public Integer getUserId() {
         return userId;
@@ -133,5 +133,13 @@ public class User implements Serializable{
 
     public void setImage(String image) {
         this.image = image == null ? null : image.trim();
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
     }
 }

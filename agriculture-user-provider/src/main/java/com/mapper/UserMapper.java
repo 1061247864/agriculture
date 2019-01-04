@@ -20,5 +20,6 @@ public interface UserMapper {
 	int updateByPrimaryKeySelective(User record);
 
 	int updateByPrimaryKey(User record);
+	User findUserByCode(@Param("userCode")String userCode);
 	List<User> findAll(@Param("type") Integer type ,@Param("user")User user );
 }

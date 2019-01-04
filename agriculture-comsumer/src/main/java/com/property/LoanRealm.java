@@ -1,44 +1,39 @@
 package com.property;
 
 
+import java.util.List;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.pojo.Permission;
+import com.pojo.Role;
+import com.pojo.User;
+import com.service.UserClientService;
 
 
 
 public class LoanRealm extends AuthorizingRealm {
 
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	/*@Autowired
-	private UserMapper userMapper;
+	@Autowired
+	private UserClientService userClientService;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		User userName = (User) principals.getPrimaryPrincipal();
-		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-		List<Role> roles = userName.getRoles();
-		List<Permission> permissions = userName.getPermissions();
-		for (Role role : roles) {
-			simpleAuthorizationInfo.addRole(role.getRoleName());
-		}
 		
-		for (Permission permission : permissions) {
-			simpleAuthorizationInfo.addStringPermission(permission.getPermissionName());
-		}
+		
+		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+	
+		
 		return simpleAuthorizationInfo;
 	}
 	@Override
@@ -49,7 +44,7 @@ public class LoanRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		String userCode = (String) token.getPrincipal();
-		User login = userMapper.findUserByCode(userCode);
+		User login = userClientService.findUserByCode(userCode);
 		if (login == null) {
 			return null;
 		}
@@ -57,5 +52,5 @@ public class LoanRealm extends AuthorizingRealm {
 				ByteSource.Util.bytes(login.getSalt()), this.getName());
 		return simpleAuthenticationInfo;
 	}
-*/
+
 }

@@ -185,4 +185,15 @@
       create_Date = #{createDate,jdbcType=TIMESTAMP}
     where per_id = #{perId,jdbcType=INTEGER}
   </update>
+  
+  <!-- =-========================= -->
+  
+  
+  
+   <select id="findPermissionByUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from permission
+    where user_id = #{value}
+  </select>
 </mapper>

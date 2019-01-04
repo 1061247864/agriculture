@@ -11,11 +11,7 @@ public interface PermissionMapper {
 
     int insertSelective(Permission record);
 
-
     Permission selectByPrimaryKey(Integer perId);
-
-
-
     int updateByPrimaryKeySelective(Permission record);
 
     int updateByPrimaryKey(Permission record);

@@ -32,6 +32,11 @@ public class UserController {
 	@PostMapping("/findusers")
 	public PageInfo<User> findUsers(User user,@RequestParam("currentPage")Integer currentPage){
 		
-		return userService.findAdmins(currentPage, user);
+		return userService.findUsers(currentPage, user);
+	}
+	
+	@PostMapping("/findUserByCode")
+	public User findUserByCode(@RequestParam(value="userCode",defaultValue="")String userCode) {
+		return userService.findUserByCode(userCode);
 	}
 }

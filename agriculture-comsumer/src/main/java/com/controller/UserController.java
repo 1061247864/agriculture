@@ -2,9 +2,13 @@ package com.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
@@ -20,6 +24,14 @@ public class UserController {
  private UserClientService  userClientService;
   
 
+  @PostMapping("/dologin")
+  public User findUserByCode(String userCode,String password)
+  {
+	  UsernamePasswordToken passwordToken = new UsernamePasswordToken(userCode, password);
+	  Subject subject= SecurityUtils.getSubject();
+	  subject.login(passwordToken);
+	  return (User)subject.getPrincipal();
+  }
  
   @GetMapping("/getuser/{id}")
   public User getUserById(@PathVariable("id")Integer id)
