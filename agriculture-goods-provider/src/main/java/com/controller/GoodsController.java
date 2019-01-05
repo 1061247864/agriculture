@@ -22,7 +22,17 @@ public class GoodsController {
 	}
 
 	@RequestMapping("/insert")
-	public int insert(@RequestParam("goods") Goods goods) {
+	public int insert(Goods goods) {
 		return goodsService.insert(goods);
+	}
+	
+	@RequestMapping("/del")
+	public int del(@RequestParam("goodsid") Integer goodsid) {
+		return goodsService.del(goodsid);
+	}
+	
+	@RequestMapping("/update")
+	public int update(Goods goods) {
+		return goodsService.update(goods);
 	}
 }

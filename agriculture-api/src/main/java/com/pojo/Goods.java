@@ -5,11 +5,9 @@ public class Goods {
 
     private String goodName;
 
-    private Integer typeId;
-
     private Integer status;
 
-    private double price;
+    private String price;
 
     private String company;
 
@@ -20,6 +18,12 @@ public class Goods {
     private Integer sumBack;
 
     private Integer shopId;
+
+    private Integer categorylevel1id;
+
+    private Integer categorylevel2id;
+
+    private Integer categorylevel3id;
 
     public Integer getGoodId() {
         return goodId;
@@ -37,14 +41,6 @@ public class Goods {
         this.goodName = goodName == null ? null : goodName.trim();
     }
 
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -53,12 +49,12 @@ public class Goods {
         this.status = status;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price ;
+    public void setPrice(String price) {
+        this.price = price == null ? null : price.trim();
     }
 
     public String getCompany() {
@@ -99,5 +95,29 @@ public class Goods {
 
     public void setShopId(Integer shopId) {
         this.shopId = shopId;
+    }
+
+    public Integer getCategorylevel1id() {
+        return categorylevel1id;
+    }
+
+    public void setCategorylevel1id(Integer categorylevel1id) {
+        this.categorylevel1id = categorylevel1id;
+    }
+
+    public Integer getCategorylevel2id() {
+        return categorylevel2id;
+    }
+
+    public void setCategorylevel2id(Integer categorylevel2id) {
+        this.categorylevel2id = categorylevel2id;
+    }
+
+    public Integer getCategorylevel3id() {
+        return categorylevel3id;
+    }
+
+    public void setCategorylevel3id(Integer categorylevel3id) {
+        this.categorylevel3id = categorylevel3id;
     }
 }

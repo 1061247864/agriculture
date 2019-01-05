@@ -5,7 +5,6 @@
 		<id column="good_id" jdbcType="INTEGER" property="goodId" />
 		<result column="good_name" jdbcType="VARCHAR"
 			property="goodName" />
-		<result column="type_id" jdbcType="INTEGER" property="typeId" />
 		<result column="status" jdbcType="INTEGER" property="status" />
 		<result column="price" jdbcType="VARCHAR" property="price" />
 		<result column="company" jdbcType="VARCHAR" property="company" />
@@ -13,6 +12,12 @@
 		<result column="sum" jdbcType="INTEGER" property="sum" />
 		<result column="sum_back" jdbcType="INTEGER" property="sumBack" />
 		<result column="shop_id" jdbcType="INTEGER" property="shopId" />
+		<result column="categoryLevel1Id" jdbcType="INTEGER"
+			property="categorylevel1id" />
+		<result column="categoryLevel2Id" jdbcType="INTEGER"
+			property="categorylevel2id" />
+		<result column="categoryLevel3Id" jdbcType="INTEGER"
+			property="categorylevel3id" />
 	</resultMap>
 
 	<select id="show" resultMap="BaseResultMap">
@@ -20,8 +25,14 @@
 		<if test="goods.goodName != null and goods.goodName != ''">
 			and good_name like concat('%',#{goods。goodName},'%')
 		</if>
-		<if test="goods.typeId != null and goods.typeId != ''">
-			and type_id=#{goods。typeId}
+		<if test="goods.categoryLevel1Id != null and goods.categoryLevel1Id != ''">
+			and categoryLevel1Id=#{goods。categoryLevel1Id}
+		</if>
+		<if test="goods.categoryLevel1Id != null and goods.categoryLevel1Id != ''">
+			and categoryLevel2Id=#{goods。categoryLevel2Id}
+		</if>
+		<if test="goods.categoryLevel1Id != null and goods.categoryLevel1Id != ''">
+			and categoryLevel3Id=#{goods。categoryLevel3Id}
 		</if>
 		<if test="goods.shopId != null and goods.shopId != ''">
 			and shop_id=#{goods.shopId}
@@ -30,6 +41,21 @@
 
 	<insert id="insert">
 		insert goods
-		values(0,#{goods.goodName},#{goods.typeId},#{goods.status},#{goods.price},#{goods.company},#{goods.context},#{goods.sum},#{goods.sumBack},#{goods.shopId})
+		values(0,#{goods.goodName},#{goods.status},#{goods.price},#{goods.company},
+		#{goods.context},#{goods.sum},#{goods.sumBack},#{goods.shopId},#{goods.tegoryLevel1Id},
+		#{goods.categoryLevel2Id},#{goods.categoryLevel3Id})
 	</insert>
+
+	<update id="update">
+		update goods set
+		good_name=#{goods.goodName},status=#{goods.status},price=#{goods.price},
+		company=#{goods.company},context=#{goods.context},sum=#{goods.sum},
+		sum_back=#{goods.sumBack},shop_id=#{goods.shopId},tegoryLevel1Id=#{goods.tegoryLevel1Id},
+		,tegoryLevel2Id=#{goods.tegoryLevel2Id},tegoryLevel3Id=#{goods.tegoryLevel3Id}
+		where good_id=#{goods.goodId}
+	</update>
+
+	<delete id="del">
+		delete from goods where good_id=#{goodsid}
+	</delete>
 </mapper>

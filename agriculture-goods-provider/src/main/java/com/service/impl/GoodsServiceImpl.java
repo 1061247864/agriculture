@@ -37,13 +37,11 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public int del(Integer goodsid) {
-		// TODO Auto-generated method stub
-		return 0;
+		return goodsMapper.del(goodsid);
 	}
 
 	@Override
 	public int update(Goods goods) {
-		// TODO Auto-generated method stub
-		return 0;
+		return goodsMapper.update(goods);
 	}
 }
