@@ -17,7 +17,7 @@ public class GoodsController {
 	private GoodsClientService goodsClientService;
 	
 	@RequestMapping("/get")
-	public PageInfo<Goods> show(@RequestParam(value = "currentPage", required = false) Integer currentPage,Goods goods) {
+	public PageInfo<Goods> show(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,Goods goods) {
 		return goodsClientService.show(currentPage, goods);
 	}
 	

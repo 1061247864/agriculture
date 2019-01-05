@@ -9,7 +9,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mapper.GoodsMapper;
 import com.pojo.Goods;
-import com.pojo.User;
 import com.service.GoodsService;
 
 @Service

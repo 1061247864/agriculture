@@ -13,7 +13,7 @@ public interface GoodsClientService {
 
 	// @Cacheable(key="#p0",value="showgoods")
 	@RequestMapping("/goods/get")
-	public PageInfo<Goods> show(@RequestParam(value = "currentPage", required = false) Integer currentPage,Goods goods);
+	public PageInfo<Goods> show(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,Goods goods);
 	
 	@RequestMapping("/goods/insert")
 	public int insert(Goods goods);
