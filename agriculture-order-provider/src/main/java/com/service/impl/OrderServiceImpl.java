@@ -35,7 +35,13 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int addOrder(Order order) {
 		// TODO Auto-generated method stub
-		return 0;
+		return orderMapper.insertSelective(order);
+	}
+
+	@Override
+	public int updOrder(Order order) {
+		// TODO Auto-generated method stub
+		return orderMapper.updateByPrimaryKeySelective(order);
 	}
 
 }
