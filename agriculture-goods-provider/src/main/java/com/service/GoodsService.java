@@ -2,7 +2,10 @@ package com.service;
 
 import java.util.List;
 
+import org.apache.solr.client.solrj.SolrServerException;
+
 import com.github.pagehelper.PageInfo;
+import com.pojo.GoodType;
 import com.pojo.Goods;
 
 import feign.Param;
@@ -17,4 +20,6 @@ public interface GoodsService {
 	public List<Goods> show(Goods goods);
 	
 	public PageInfo<Goods> showGoods(Integer currentPage,Goods goods);
+	
+	public List<GoodType> getGoodTypeList();
 }
