@@ -1,145 +1,172 @@
 package com.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class User {
-    private Integer userId;
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 155414001199761988L;
 
-    private String userCode;
+	private Integer userId;
 
-    private String password;
+	private String userCode;
 
-    private String email;
+	private String password;
 
-    private String phone;
+	private String email;
 
-    private Integer age;
+	private String phone;
 
-    private Integer sex;
+	private Integer age;
 
-    private Date createdate;
+	private Integer sex;
 
-    private Date lastLogin;
+	private Date createdate;
 
-    private String userName;
+	private Date lastLogin;
 
-    private Integer status;
+	private String userName;
 
-    private Integer vipId;
+	private Integer status;
 
-    private String image;
+	private Integer vipId;
 
-    private String salt;
+	private String image;
 
-    public Integer getUserId() {
-        return userId;
-    }
+	private String salt;
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+	private List<Permission> permissions;
 
-    public String getUserCode() {
-        return userCode;
-    }
+	private List<Role> roles;
 
-    public void setUserCode(String userCode) {
-        this.userCode = userCode == null ? null : userCode.trim();
-    }
+	public List<Role> getRoles() {
+		return roles;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
+	}
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+	public Integer getUserId() {
+		return userId;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
+	public String getUserCode() {
+		return userCode;
+	}
 
-    public Integer getAge() {
-        return age;
-    }
+	public void setUserCode(String userCode) {
+		this.userCode = userCode == null ? null : userCode.trim();
+	}
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public Integer getSex() {
-        return sex;
-    }
+	public void setPassword(String password) {
+		this.password = password == null ? null : password.trim();
+	}
 
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public Date getCreatedate() {
-        return createdate;
-    }
+	public void setEmail(String email) {
+		this.email = email == null ? null : email.trim();
+	}
 
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public Date getLastLogin() {
-        return lastLogin;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone == null ? null : phone.trim();
+	}
 
-    public void setLastLogin(Date lastLogin) {
-        this.lastLogin = lastLogin;
-    }
+	public Integer getAge() {
+		return age;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
+	public Integer getSex() {
+		return sex;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public Date getCreatedate() {
+		return createdate;
+	}
 
-    public Integer getVipId() {
-        return vipId;
-    }
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
 
-    public void setVipId(Integer vipId) {
-        this.vipId = vipId;
-    }
+	public Date getLastLogin() {
+		return lastLogin;
+	}
 
-    public String getImage() {
-        return image;
-    }
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
 
-    public void setImage(String image) {
-        this.image = image == null ? null : image.trim();
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public String getSalt() {
-        return salt;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName == null ? null : userName.trim();
+	}
 
-    public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
-    }
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getVipId() {
+		return vipId;
+	}
+
+	public void setVipId(Integer vipId) {
+		this.vipId = vipId;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image == null ? null : image.trim();
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt == null ? null : salt.trim();
+	}
 }

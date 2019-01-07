@@ -1,9 +1,15 @@
 package com.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Permission {
-    private Integer perId;
+public class Permission implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer perId;
 
     private String perName;
 

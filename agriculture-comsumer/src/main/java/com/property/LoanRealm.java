@@ -1,7 +1,10 @@
 package com.property;
 
 
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -11,18 +14,23 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pojo.Permission;
 import com.pojo.Role;
 import com.pojo.User;
 import com.service.UserClientService;
+import com.util.MySimpleByteSource;
 
 
 
 public class LoanRealm extends AuthorizingRealm {
-
+	
+	/*public LoanRealm() {
+		HashedCredentialsMatcher hashedCredentialsMatcher =new HashedCredentialsMatcher("MD5");
+		hashedCredentialsMatcher.setHashIterations(2);
+		super.setCredentialsMatcher(hashedCredentialsMatcher);
+	}*/
 
 	@Autowired
 	private UserClientService userClientService;
@@ -32,7 +40,23 @@ public class LoanRealm extends AuthorizingRealm {
 		
 		
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-	
+		 User user=(User) principals.getPrimaryPrincipal();
+		 if(user!=null)
+		 {
+			 Set<String>roless = new HashSet<String>();
+			 List<Role> roles = user.getRoles();
+			 for (Role role : roles) {
+				 roless.add(role.getRoleName());
+			}
+			 List<Permission> lPermissions = user.getPermissions();
+			 
+			 Set<String>sPermissions = new HashSet<String>();
+			 for (Permission permission : lPermissions) {
+				 sPermissions.add(permission.getPreMenuName());
+			}
+			 simpleAuthorizationInfo.addRoles(roless);
+			 simpleAuthorizationInfo.addStringPermissions(sPermissions);
+		 }
 		
 		return simpleAuthorizationInfo;
 	}
@@ -41,6 +65,7 @@ public class LoanRealm extends AuthorizingRealm {
 		return "myRealm";
 	}
 
+	
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		String userCode = (String) token.getPrincipal();
@@ -49,7 +74,8 @@ public class LoanRealm extends AuthorizingRealm {
 			return null;
 		}
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(login, login.getPassword(),
-				ByteSource.Util.bytes(login.getSalt()), this.getName());
+				new MySimpleByteSource(login.getSalt()), this.getName());
+		simpleAuthenticationInfo.setPrincipals(new MySimplePrincipalCollection(login,this.getName()));
 		return simpleAuthenticationInfo;
 	}
 

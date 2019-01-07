@@ -1,4 +1,4 @@
-package com.configuration;
+package com.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
@@ -36,6 +37,7 @@ public class ShiroRedisSerializeble implements RedisSerializer<Object> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
 		objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 	}
 
@@ -50,6 +52,7 @@ public class ShiroRedisSerializeble implements RedisSerializer<Object> {
 			throw new SerializationException("requires a Serializable payload " + "but received an object of type ["
 					+ object.getClass().getName() + "]");
 		}
+		
 			result = jackson2JsonRedisSerializer.serialize(object);
 
 		return result;

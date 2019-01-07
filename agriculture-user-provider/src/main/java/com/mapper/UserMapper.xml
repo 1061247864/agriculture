@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UserMapper">
-	 <resultMap id="BaseResultMap" type="com.pojo.User">
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
-    <result column="last_Login" jdbcType="TIMESTAMP" property="lastLogin" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="vip_id" jdbcType="INTEGER" property="vipId" />
-    <result column="image" jdbcType="VARCHAR" property="image" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
-  </resultMap>
+	<resultMap id="BaseResultMap" type="com.pojo.User">
+		<id column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="user_code" jdbcType="VARCHAR"
+			property="userCode" />
+		<result column="password" jdbcType="VARCHAR"
+			property="password" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="age" jdbcType="INTEGER" property="age" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+		<result column="createDate" jdbcType="TIMESTAMP"
+			property="createdate" />
+		<result column="last_Login" jdbcType="TIMESTAMP"
+			property="lastLogin" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="vip_id" jdbcType="INTEGER" property="vipId" />
+		<result column="image" jdbcType="VARCHAR" property="image" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
+	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria"
@@ -32,8 +37,7 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value}
-									and
+									and ${criterion.condition} #{criterion.value} and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -65,8 +69,7 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value}
-									and
+									and ${criterion.condition} #{criterion.value} and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -84,10 +87,9 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		user_id, user_code, password, email, phone, age, sex,
-		createDate, last_Login,
+		user_id, user_code, password, email, phone, age, sex, createDate, last_Login,
 		user_name,
-		status, vip_id, image
+		status, vip_id, image, salt
 	</sql>
 
 	<select id="selectByPrimaryKey"
@@ -100,28 +102,22 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from user
-		where user_id =
-		#{userId,jdbcType=INTEGER}
+		where user_id = #{userId,jdbcType=INTEGER}
 	</delete>
 
 	<insert id="insert" parameterType="com.pojo.User">
-		insert into user (user_id,
-		user_code, password,
+		insert into user (user_id, user_code, password,
 		email, phone, age,
 		sex, createDate, last_Login,
 		user_name, status, vip_id,
-		image)
-		values (#{userId,jdbcType=INTEGER},
-		#{userCode,jdbcType=VARCHAR},
+		image, salt)
+		values (#{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
-		#{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
-		#{age,jdbcType=INTEGER},
-		#{sex,jdbcType=INTEGER},
-		#{createdate,jdbcType=TIMESTAMP},
+		#{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
+		#{sex,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP},
 		#{lastLogin,jdbcType=TIMESTAMP},
-		#{userName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
-		#{vipId,jdbcType=INTEGER},
-		#{image,jdbcType=VARCHAR})
+		#{userName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{vipId,jdbcType=INTEGER},
+		#{image,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.pojo.User">
 		insert into user
@@ -165,6 +161,9 @@
 			<if test="image != null">
 				image,
 			</if>
+			<if test="salt != null">
+				salt,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="userId != null">
@@ -205,6 +204,9 @@
 			</if>
 			<if test="image != null">
 				#{image,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				#{salt,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -251,6 +253,9 @@
 			<if test="record.image != null">
 				image = #{record.image,jdbcType=VARCHAR},
 			</if>
+			<if test="record.salt != null">
+				salt = #{record.salt,jdbcType=VARCHAR},
+			</if>
 		</set>
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -259,28 +264,19 @@
 	<update id="updateByExample" parameterType="map">
 		update user
 		set user_id = #{record.userId,jdbcType=INTEGER},
-		user_code =
-		#{record.userCode,jdbcType=VARCHAR},
-		password =
-		#{record.password,jdbcType=VARCHAR},
-		email =
-		#{record.email,jdbcType=VARCHAR},
-		phone =
-		#{record.phone,jdbcType=VARCHAR},
+		user_code = #{record.userCode,jdbcType=VARCHAR},
+		password = #{record.password,jdbcType=VARCHAR},
+		email = #{record.email,jdbcType=VARCHAR},
+		phone = #{record.phone,jdbcType=VARCHAR},
 		age = #{record.age,jdbcType=INTEGER},
 		sex = #{record.sex,jdbcType=INTEGER},
-		createDate =
-		#{record.createdate,jdbcType=TIMESTAMP},
-		last_Login =
-		#{record.lastLogin,jdbcType=TIMESTAMP},
-		user_name =
-		#{record.userName,jdbcType=VARCHAR},
-		status =
-		#{record.status,jdbcType=INTEGER},
-		vip_id =
-		#{record.vipId,jdbcType=INTEGER},
-		image =
-		#{record.image,jdbcType=VARCHAR}
+		createDate = #{record.createdate,jdbcType=TIMESTAMP},
+		last_Login = #{record.lastLogin,jdbcType=TIMESTAMP},
+		user_name = #{record.userName,jdbcType=VARCHAR},
+		status = #{record.status,jdbcType=INTEGER},
+		vip_id = #{record.vipId,jdbcType=INTEGER},
+		image = #{record.image,jdbcType=VARCHAR},
+		salt = #{record.salt,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -325,53 +321,104 @@
 			<if test="image != null">
 				image = #{image,jdbcType=VARCHAR},
 			</if>
+			<if test="salt != null">
+				salt = #{salt,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where user_id = #{userId,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.pojo.User">
 		update user
-		set
-		user_code = #{userCode,jdbcType=VARCHAR},
-		password =
-		#{password,jdbcType=VARCHAR},
+		set user_code = #{userCode,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
 		email = #{email,jdbcType=VARCHAR},
-		phone =
-		#{phone,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
 		age = #{age,jdbcType=INTEGER},
-		sex =
-		#{sex,jdbcType=INTEGER},
+		sex = #{sex,jdbcType=INTEGER},
 		createDate = #{createdate,jdbcType=TIMESTAMP},
 		last_Login = #{lastLogin,jdbcType=TIMESTAMP},
-		user_name =
-		#{userName,jdbcType=VARCHAR},
+		user_name = #{userName,jdbcType=VARCHAR},
 		status = #{status,jdbcType=INTEGER},
 		vip_id = #{vipId,jdbcType=INTEGER},
-		image = #{image,jdbcType=VARCHAR}
+		image = #{image,jdbcType=VARCHAR},
+		salt = #{salt,jdbcType=VARCHAR}
 		where user_id = #{userId,jdbcType=INTEGER}
 	</update>
 	<!-- 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
+	<sql id="loginList">
+		u.user_id, user_code, password, email, phone, age, sex,
+		createDate, last_Login,
+		user_name,
+		status, vip_id, image,salt
+		, p.per_id,
+		per_name, pre_menu_name, pre_menu_url, create_Date,
+		 r.role_id, role_name
+	</sql>
 
 
+	<resultMap id="LoginBaseResultMap" type="com.pojo.User">
+		<id column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="user_code" jdbcType="VARCHAR"
+			property="userCode" />
+		<result column="password" jdbcType="VARCHAR"
+			property="password" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="age" jdbcType="INTEGER" property="age" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+		<result column="createDate" jdbcType="TIMESTAMP"
+			property="createdate" />
+		<result column="last_Login" jdbcType="TIMESTAMP"
+			property="lastLogin" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="vip_id" jdbcType="INTEGER" property="vipId" />
+		<result column="image" jdbcType="VARCHAR" property="image" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
 
+		<collection property="permissions"
+			resultMap="BasePermissionMap"></collection>
+		<collection property="roles" resultMap="BaseRolenMap"></collection>
+	</resultMap>
+	<resultMap id="BasePermissionMap" type="com.pojo.Permission">
+		<id column="per_id" jdbcType="INTEGER" property="perId" />
+		<result column="per_name" jdbcType="VARCHAR" property="perName" />
+		<result column="pre_menu_name" jdbcType="VARCHAR"
+			property="preMenuName" />
+		<result column="pre_menu_url" jdbcType="VARCHAR"
+			property="preMenuUrl" />
+		<result column="create_Date" jdbcType="TIMESTAMP"
+			property="createDate" />
+
+	</resultMap>
+	<resultMap id="BaseRolenMap" type="com.pojo.Role">
+		<id column="role_id" jdbcType="INTEGER" property="roleId" />
+		<result column="role_name" jdbcType="VARCHAR"
+			property="roleName" />
+	</resultMap>
 	<select id="findAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from user
-		 <where>
+		<where>
 			and user_type=#{type}
 			<if test="user.userName != null and user.userName != ''">
-			and	user_name = #{user.userName}
+				and user_name = #{user.userName}
 			</if>
 			<if test="user.userCode != null and user.userCode != ''">
-			and	user_code = #{user.userCode}
+				and user_code = #{user.userCode}
 			</if>
-		</where> 
+		</where>
 	</select>
-	<select id="findUserByCode"
-		 resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from user
-		where user_code = #{userCode}
+	<select id="findUserByCode" resultMap="LoginBaseResultMap">
+		SELECT
+		<include refid="loginList" />
+		FROM USER u
+		LEFT JOIN user_role ur ON ur.user_id=u.user_id
+		LEFT JOIN role r ON r.role_id=ur.role_id
+		LEFT JOIN role_per rp ON rp.role_id=r.role_id
+		LEFT JOIN permission p ON p.per_id=rp.per_id
+		WHERE u.user_code=#{userCode}
 	</select>
 </mapper>

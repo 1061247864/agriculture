@@ -7,7 +7,10 @@
     <result column="pre_menu_name" jdbcType="VARCHAR" property="preMenuName" />
     <result column="pre_menu_url" jdbcType="VARCHAR" property="preMenuUrl" />
     <result column="create_Date" jdbcType="TIMESTAMP" property="createDate" />
+   
   </resultMap>
+  
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -191,9 +194,17 @@
   
   
    <select id="findPermissionByUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from permission
-    where user_id = #{value}
+  SELECT 
+   <include refid="Base_Column_List" />
+  FROM USER u,
+  role r,
+  user_role ur,
+  permission p ,
+  role_per rp  
+  WHERE  u.user_id=ur.user_id 
+  AND ur.role_id=r.role_id 
+  AND rp.per_id=p.per_id 
+  AND rp.role_id =r.role_id
+  AND u.user_id=#{val}
   </select>
 </mapper>
