@@ -1,5 +1,9 @@
 package com.controller;
 
+import java.util.List;
+
+import org.apache.solr.client.solrj.SolrServerException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
+import com.pojo.GoodType;
 import com.pojo.Goods;
 import com.service.GoodsService;
 
@@ -18,7 +23,7 @@ public class GoodsController {
 
 	@RequestMapping("/get")
 	public PageInfo<Goods> showGoods(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,
-		Goods goods) {
+			@RequestBody Goods goods) throws SolrServerException {
 		return goodsService.showGoods(currentPage, goods);
 	}
 
@@ -35,5 +40,10 @@ public class GoodsController {
 	@RequestMapping("/update")
 	public int update(Goods goods) {
 		return goodsService.update(goods);
+	}
+	
+	@RequestMapping("/gettype")
+	public List<GoodType> showType(){
+		return goodsService.getGoodTypeList();
 	}
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.GoodTypeMapper">
+	<resultMap id="BaseResultMap" type="com.pojo.GoodType">
+		<id column="type_id" jdbcType="INTEGER" property="typeId" />
+		<result column="type_name" jdbcType="VARCHAR"
+			property="typeName" />
+		<result column="parent_id" jdbcType="INTEGER"
+			property="parentId" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+
+
+	</resultMap>
+	<select id="show" resultMap="BaseResultMap">
+		SELECT
+		`type_id`,`type_name`,`parent_id`,`type`
+		FROM `good_type` WHERE 1=1
+		<if test="goodtype == null">
+		and `type`=1
+		</if>
+		<if test="goodtype != null">
+		and `parent_id`=#{goodtype.typeId}
+		</if>
+	</select>
+</mapper>

@@ -1,11 +1,14 @@
 package com.goods.service;
 
 
+import java.util.List;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
+import com.pojo.GoodType;
 import com.pojo.Goods;
 
 @FeignClient("GOODSPROVIDER")
@@ -23,4 +26,7 @@ public interface GoodsClientService {
 	
 	@RequestMapping("/goods/update")
 	public int update(Goods goods);
+	
+	@RequestMapping("/goods/gettype")
+	public List<GoodType> showType();
 }

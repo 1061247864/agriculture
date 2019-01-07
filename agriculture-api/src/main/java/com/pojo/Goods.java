@@ -1,40 +1,24 @@
 package com.pojo;
 
-import org.apache.solr.client.solrj.beans.Field;
-import org.springframework.data.solr.core.mapping.SolrDocument;
-
-@SolrDocument(solrCoreName = "goods")
 public class Goods {
-	@Field("goodId")
-	private String goodId;
-	@Field("goodName")
+	private Integer goodId;
 	private String goodName;
-	@Field("status")
 	private Integer status;
-	@Field("price")
-	private String price;
-	@Field("company")
+	private double price;
 	private String company;
-	@Field("context")
 	private String context;
-	@Field("sum")
 	private Integer sum;
-	@Field("sumBack")
 	private Integer sumBack;
-	@Field("shopId")
 	private Integer shopId;
-	@Field("categorylevel1id")
 	private Integer categorylevel1id;
-	@Field("categorylevel2id")
 	private Integer categorylevel2id;
-	@Field("categorylevel3id")
 	private Integer categorylevel3id;
 
-	public String getGoodId() {
+	public Integer getGoodId() {
 		return goodId;
 	}
 
-	public void setGoodId(String goodId) {
+	public void setGoodId(Integer goodId) {
 		this.goodId = goodId;
 	}
 
@@ -54,12 +38,12 @@ public class Goods {
 		this.status = status;
 	}
 
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
-		this.price = price == null ? null : price.trim();
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	public String getCompany() {
