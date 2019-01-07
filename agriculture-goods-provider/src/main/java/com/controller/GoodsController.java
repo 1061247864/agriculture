@@ -1,5 +1,6 @@
 package com.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,9 @@ public class GoodsController {
 
 	@RequestMapping("/get")
 	public PageInfo<Goods> showGoods(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,
-		Goods goods) {
+		@RequestBody Goods goods/*,HttpServletResponse response*/) {
+		/*response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问 
+		response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式*/		
 		return goodsService.showGoods(currentPage, goods);
 	}
 
