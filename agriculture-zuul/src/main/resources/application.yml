@@ -23,8 +23,11 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 zuul:
-  sensitive-headers: Access-Control-Allow-Origin  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken  ignored-services: "*"
+  sensitive-headers: Access-Control-Allow-Origin  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken  
+  ignored-services: "*"
   routes:     userprovider: userv/**     consumer: consumer/**
      goodsprovider: goods/**
 
+
+     
     

@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.google.common.net.MediaType;
+import com.pojo.Role;
 import com.pojo.User;
 import com.service.UserClientService;
 
@@ -27,8 +31,9 @@ public class UserController {
 	@Autowired
 	private UserClientService userClientService;
 
-	@PostMapping("/dologin")
-	public User findUserByCode(@RequestParam("userCode")String userCode,@RequestParam("password") String password) {
+	@CrossOrigin(origins= {"http://172.20.10.4:8002","null","*"})
+	@PostMapping(value="/dologin")
+	public User findUserByCode(@RequestParam(value="userCode")String userCode,@RequestParam(value="password") String password) {
 		UsernamePasswordToken passwordToken = new UsernamePasswordToken(userCode, password);
 		Subject subject = SecurityUtils.getSubject();
 		subject.login(passwordToken);
@@ -49,6 +54,10 @@ public class UserController {
 		simpleHash=null;
 		return userClientService.userRegistry(user);
 	}
+	/*public List<Role> findRoles(){
+		
+		
+	}*/
 
 	@RequestMapping("/findbean")
 	public String findbean(HttpSession session) {
