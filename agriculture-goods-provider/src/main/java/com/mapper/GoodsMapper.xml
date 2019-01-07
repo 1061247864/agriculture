@@ -25,8 +25,8 @@
 		<if test="goods.goodName != null and goods.goodName != ''">
 			and good_name like concat('%',#{goods.goodName},'%')
 		</if>
-		<if test="goods.categoryLevelId != null and goods.categoryLevel1Id != ''">
-			and categoryLevel1Id=#{goods。categoryLevel1Id}
+		<if test="goods.categoryLevel1Id != null and goods.categoryLevel1Id != ''">
+			and categoryLevel1Id=#{goods.categoryLevel1Id}
 		</if>
 		<if test="goods.categoryLevel2Id != null and goods.categoryLevel2Id != ''">
 			and categoryLevel2Id=#{goods。categoryLevel2Id}

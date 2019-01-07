@@ -1,7 +1,10 @@
 package com.goods.controller;
 
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,9 +18,9 @@ import com.pojo.Goods;
 public class GoodsController {
 	@Autowired
 	private GoodsClientService goodsClientService;
-	
+	@CrossOrigin(origins = {"http://127.0.0.1:8020", "null","*"})
 	@RequestMapping("/get")
-	public PageInfo<Goods> show(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,Goods goods) {
+	public PageInfo<Goods> show(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,Goods goods,HttpServletResponse response) {
 		return goodsClientService.show(currentPage, goods);
 	}
 	
