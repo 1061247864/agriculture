@@ -9,7 +9,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mapper.GoodsMapper;
 import com.pojo.Goods;
-import com.pojo.User;
 import com.service.GoodsService;
 
 @Service
@@ -37,13 +36,11 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public int del(Integer goodsid) {
-		// TODO Auto-generated method stub
-		return 0;
+		return goodsMapper.del(goodsid);
 	}
 
 	@Override
 	public int update(Goods goods) {
-		// TODO Auto-generated method stub
-		return 0;
+		return goodsMapper.update(goods);
 	}
 }

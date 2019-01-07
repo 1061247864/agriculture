@@ -7,4 +7,5 @@ public interface OrderService {
 	PageInfo<Order> getOrderList(Integer currentPage,Order order);
 	int delOrderById(Integer id);
 	int addOrder(Order order);
+	int updOrder(Order order);
 }

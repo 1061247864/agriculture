@@ -1,103 +1,128 @@
 package com.pojo;
 
+import org.apache.solr.client.solrj.beans.Field;
+import org.springframework.data.solr.core.mapping.SolrDocument;
+
+@SolrDocument(solrCoreName = "goods")
 public class Goods {
-    private Integer goodId;
+	@Field("goodId")
+	private String goodId;
+	@Field("goodName")
+	private String goodName;
+	@Field("status")
+	private Integer status;
+	@Field("price")
+	private String price;
+	@Field("company")
+	private String company;
+	@Field("context")
+	private String context;
+	@Field("sum")
+	private Integer sum;
+	@Field("sumBack")
+	private Integer sumBack;
+	@Field("shopId")
+	private Integer shopId;
+	@Field("categorylevel1id")
+	private Integer categorylevel1id;
+	@Field("categorylevel2id")
+	private Integer categorylevel2id;
+	@Field("categorylevel3id")
+	private Integer categorylevel3id;
 
-    private String goodName;
+	public String getGoodId() {
+		return goodId;
+	}
 
-    private Integer typeId;
+	public void setGoodId(String goodId) {
+		this.goodId = goodId;
+	}
 
-    private Integer status;
+	public String getGoodName() {
+		return goodName;
+	}
 
-    private double price;
+	public void setGoodName(String goodName) {
+		this.goodName = goodName == null ? null : goodName.trim();
+	}
 
-    private String company;
+	public Integer getStatus() {
+		return status;
+	}
 
-    private String context;
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-    private Integer sum;
+	public String getPrice() {
+		return price;
+	}
 
-    private Integer sumBack;
+	public void setPrice(String price) {
+		this.price = price == null ? null : price.trim();
+	}
 
-    private Integer shopId;
+	public String getCompany() {
+		return company;
+	}
 
-    public Integer getGoodId() {
-        return goodId;
-    }
+	public void setCompany(String company) {
+		this.company = company == null ? null : company.trim();
+	}
 
-    public void setGoodId(Integer goodId) {
-        this.goodId = goodId;
-    }
+	public String getContext() {
+		return context;
+	}
 
-    public String getGoodName() {
-        return goodName;
-    }
+	public void setContext(String context) {
+		this.context = context == null ? null : context.trim();
+	}
 
-    public void setGoodName(String goodName) {
-        this.goodName = goodName == null ? null : goodName.trim();
-    }
+	public Integer getSum() {
+		return sum;
+	}
 
-    public Integer getTypeId() {
-        return typeId;
-    }
+	public void setSum(Integer sum) {
+		this.sum = sum;
+	}
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
+	public Integer getSumBack() {
+		return sumBack;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public void setSumBack(Integer sumBack) {
+		this.sumBack = sumBack;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public Integer getShopId() {
+		return shopId;
+	}
 
-    public double getPrice() {
-        return price;
-    }
+	public void setShopId(Integer shopId) {
+		this.shopId = shopId;
+	}
 
-    public void setPrice(double price) {
-        this.price = price ;
-    }
+	public Integer getCategorylevel1id() {
+		return categorylevel1id;
+	}
 
-    public String getCompany() {
-        return company;
-    }
+	public void setCategorylevel1id(Integer categorylevel1id) {
+		this.categorylevel1id = categorylevel1id;
+	}
 
-    public void setCompany(String company) {
-        this.company = company == null ? null : company.trim();
-    }
+	public Integer getCategorylevel2id() {
+		return categorylevel2id;
+	}
 
-    public String getContext() {
-        return context;
-    }
+	public void setCategorylevel2id(Integer categorylevel2id) {
+		this.categorylevel2id = categorylevel2id;
+	}
 
-    public void setContext(String context) {
-        this.context = context == null ? null : context.trim();
-    }
+	public Integer getCategorylevel3id() {
+		return categorylevel3id;
+	}
 
-    public Integer getSum() {
-        return sum;
-    }
-
-    public void setSum(Integer sum) {
-        this.sum = sum;
-    }
-
-    public Integer getSumBack() {
-        return sumBack;
-    }
-
-    public void setSumBack(Integer sumBack) {
-        this.sumBack = sumBack;
-    }
-
-    public Integer getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(Integer shopId) {
-        this.shopId = shopId;
-    }
+	public void setCategorylevel3id(Integer categorylevel3id) {
+		this.categorylevel3id = categorylevel3id;
+	}
 }

@@ -6,7 +6,9 @@ spring:
     url: jdbc:mysql://localhost:3306/intelligentagriculturedb
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-
+  data:
+    solr:
+      host: http://localhost:8983/solr/
 
 mybatis:
   type-aliases-package: com.pojo
