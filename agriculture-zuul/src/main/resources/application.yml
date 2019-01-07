@@ -8,6 +8,7 @@ ribbon:  eager-load:    enabled: true
 server:
   port: 4433
 
+
 shiro: 
   shiroFilter: 
     filterChainDefinitionMap: 
@@ -21,6 +22,9 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-zuul:  ignored-services: "*"
-  routes:     userprovider: userv/**
-     goodsprovider: goods/**    
+zuul:
+  sensitive-headers: Access-Control-Allow-Origin  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken  ignored-services: "*"
+  routes:     userprovider: userv/**     consumer: consumer/**
+     goodsprovider: goods/**
+
+    
