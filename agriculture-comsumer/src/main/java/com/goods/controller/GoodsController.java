@@ -1,6 +1,8 @@
 package com.goods.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.goods.service.GoodsClientService;
+import com.pojo.GoodType;
 import com.pojo.Goods;
 
 @RestController
@@ -37,5 +40,10 @@ public class GoodsController {
 	@RequestMapping("/update")
 	public int update(Goods goods) {
 		return goodsClientService.update(goods);
+	}
+	
+	@RequestMapping("/gettype")
+	public List<GoodType> showType(){
+		return goodsClientService.showType();
 	}
 }
