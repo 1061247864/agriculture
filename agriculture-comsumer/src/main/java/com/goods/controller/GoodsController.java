@@ -21,7 +21,7 @@ import com.pojo.Goods;
 public class GoodsController {
 	@Autowired
 	private GoodsClientService goodsClientService;
-	@CrossOrigin(origins = {"http://127.0.0.1:8020", "null","*"})
+	/*@CrossOrigin(origins = {"http://127.0.0.1:8020", "null","*"})*/
 	@RequestMapping("/get")
 	public PageInfo<Goods> show(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,Goods goods,HttpServletResponse response) {
 		return goodsClientService.show(currentPage, goods);
@@ -42,6 +42,7 @@ public class GoodsController {
 		return goodsClientService.update(goods);
 	}
 	
+/*	@CrossOrigin(origins = {"http://127.0.0.1:8020", "null","*"})*/
 	@RequestMapping("/gettype")
 	public List<GoodType> showType(){
 		return goodsClientService.showType();

@@ -1,112 +1,133 @@
 package com.pojo;
 
 public class Goods {
-	private Integer goodId;
-	private String goodName;
-	private Integer status;
-	private double price;
-	private String company;
-	private String context;
-	private Integer sum;
-	private Integer sumBack;
-	private Integer shopId;
-	private Integer categorylevel1id;
-	private Integer categorylevel2id;
-	private Integer categorylevel3id;
+    private Integer goodId;
 
-	public Integer getGoodId() {
-		return goodId;
-	}
+    private String goodName;
 
-	public void setGoodId(Integer goodId) {
-		this.goodId = goodId;
-	}
+    private Integer status;
 
-	public String getGoodName() {
-		return goodName;
-	}
+    private Double price;
 
-	public void setGoodName(String goodName) {
-		this.goodName = goodName == null ? null : goodName.trim();
-	}
+    private String company;
 
-	public Integer getStatus() {
-		return status;
-	}
+    private String context;
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    private Integer sum;
 
-	public double getPrice() {
-		return price;
-	}
+    private Integer sumBack;
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
+    private Integer shopId;
 
-	public String getCompany() {
-		return company;
-	}
+    private Integer categorylevel1id;
 
-	public void setCompany(String company) {
-		this.company = company == null ? null : company.trim();
-	}
+    private Integer categorylevel2id;
 
-	public String getContext() {
-		return context;
-	}
+    private Integer categorylevel3id;
 
-	public void setContext(String context) {
-		this.context = context == null ? null : context.trim();
-	}
+    private String photo;
 
-	public Integer getSum() {
-		return sum;
-	}
+    public Integer getGoodId() {
+        return goodId;
+    }
 
-	public void setSum(Integer sum) {
-		this.sum = sum;
-	}
+    public void setGoodId(Integer goodId) {
+        this.goodId = goodId;
+    }
 
-	public Integer getSumBack() {
-		return sumBack;
-	}
+    public String getGoodName() {
+        return goodName;
+    }
 
-	public void setSumBack(Integer sumBack) {
-		this.sumBack = sumBack;
-	}
+    public void setGoodName(String goodName) {
+        this.goodName = goodName == null ? null : goodName.trim();
+    }
 
-	public Integer getShopId() {
-		return shopId;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public void setShopId(Integer shopId) {
-		this.shopId = shopId;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public Integer getCategorylevel1id() {
-		return categorylevel1id;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public void setCategorylevel1id(Integer categorylevel1id) {
-		this.categorylevel1id = categorylevel1id;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public Integer getCategorylevel2id() {
-		return categorylevel2id;
-	}
+    public String getCompany() {
+        return company;
+    }
 
-	public void setCategorylevel2id(Integer categorylevel2id) {
-		this.categorylevel2id = categorylevel2id;
-	}
+    public void setCompany(String company) {
+        this.company = company == null ? null : company.trim();
+    }
 
-	public Integer getCategorylevel3id() {
-		return categorylevel3id;
-	}
+    public String getContext() {
+        return context;
+    }
 
-	public void setCategorylevel3id(Integer categorylevel3id) {
-		this.categorylevel3id = categorylevel3id;
-	}
+    public void setContext(String context) {
+        this.context = context == null ? null : context.trim();
+    }
+
+    public Integer getSum() {
+        return sum;
+    }
+
+    public void setSum(Integer sum) {
+        this.sum = sum;
+    }
+
+    public Integer getSumBack() {
+        return sumBack;
+    }
+
+    public void setSumBack(Integer sumBack) {
+        this.sumBack = sumBack;
+    }
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
+    public Integer getCategorylevel1id() {
+        return categorylevel1id;
+    }
+
+    public void setCategorylevel1id(Integer categorylevel1id) {
+        this.categorylevel1id = categorylevel1id;
+    }
+
+    public Integer getCategorylevel2id() {
+        return categorylevel2id;
+    }
+
+    public void setCategorylevel2id(Integer categorylevel2id) {
+        this.categorylevel2id = categorylevel2id;
+    }
+
+    public Integer getCategorylevel3id() {
+        return categorylevel3id;
+    }
+
+    public void setCategorylevel3id(Integer categorylevel3id) {
+        this.categorylevel3id = categorylevel3id;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo == null ? null : photo.trim();
+    }
 }
