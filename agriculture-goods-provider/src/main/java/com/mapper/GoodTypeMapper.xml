@@ -8,8 +8,6 @@
 		<result column="parent_id" jdbcType="INTEGER"
 			property="parentId" />
 		<result column="type" jdbcType="INTEGER" property="type" />
-
-
 	</resultMap>
 	<select id="show" resultMap="BaseResultMap">
 		SELECT

@@ -7,6 +7,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import com.github.pagehelper.PageInfo;
 import com.pojo.GoodType;
 import com.pojo.Goods;
+import com.pojo.Shop;
 
 import feign.Param;
 
@@ -20,4 +21,6 @@ public interface GoodsService {
 	public PageInfo<Goods> showGoods(Integer currentPage,Goods goods);
 	
 	public List<GoodType> getGoodTypeList();
+	
+	public List<Shop> showShops(Shop shop);
 }

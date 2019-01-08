@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.pagehelper.PageInfo;
 import com.pojo.GoodType;
 import com.pojo.Goods;
+import com.pojo.Shop;
 
 @FeignClient("GOODSPROVIDER")
 public interface GoodsClientService {
@@ -29,4 +30,7 @@ public interface GoodsClientService {
 	
 	@RequestMapping("/goods/gettype")
 	public List<GoodType> showType();
+	
+	@RequestMapping("/goods/getshop")
+	public List<Shop> showShop();
 }

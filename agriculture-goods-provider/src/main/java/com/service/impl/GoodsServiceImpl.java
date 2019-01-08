@@ -1,36 +1,35 @@
 package com.service.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.javassist.expr.NewArray;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.impl.XMLResponseParser;
-import org.apache.solr.client.solrj.request.QueryRequest;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.StringUtil;
 import com.mapper.GoodTypeMapper;
 import com.mapper.GoodsMapper;
+import com.mapper.ShopMapper;
 import com.pojo.GoodType;
 import com.pojo.Goods;
+import com.pojo.Shop;
 import com.service.GoodsService;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
 	@Autowired
 	private GoodsMapper goodsMapper;
+
+	@Autowired
+	private ShopMapper shopMapper;
 
 	@Autowired
 	private GoodTypeMapper goodTypeMapper;
@@ -43,18 +42,18 @@ public class GoodsServiceImpl implements GoodsService {
 		if (goods != null) {
 
 			if (goods.getGoodName() != null && !"".equals(goods.getGoodName())) {
-				queryString.append("     AND  goodname:" + goods.getGoodName()+"    ");
+				queryString.append("     AND  goodname:" + goods.getGoodName() + "    ");
 			}
 			if (goods.getShopId() != null && goods.getShopId() != 0) {
-				queryString.append("     AND  shop_id:" + goods.getShopId()+"    ");
+				queryString.append("     AND  shop_id:" + goods.getShopId() + "    ");
 			}
 
 			if (goods.getCategorylevel1id() != null && goods.getCategorylevel1id() != 0) {
-				queryString.append("     AND   categoryLevel1Id:" + goods.getCategorylevel1id()+"    ");
+				queryString.append("     AND   categoryLevel1Id:" + goods.getCategorylevel1id() + "    ");
 			} else if (goods.getCategorylevel2id() != null && goods.getCategorylevel2id() != 0) {
-				queryString.append("       AND  categoryLevel2Id:" + goods.getCategorylevel2id()+"    ");
+				queryString.append("       AND  categoryLevel2Id:" + goods.getCategorylevel2id() + "    ");
 			} else if (goods.getCategorylevel3id() != null && goods.getCategorylevel3id() != 0) {
-				queryString.append("      AND   categoryLevel3Id:" + goods.getCategorylevel3id()+"    ");
+				queryString.append("      AND   categoryLevel3Id:" + goods.getCategorylevel3id() + "    ");
 			}
 			if (StringUtil.isEmpty(queryString.toString())) {
 				query.setQuery("*:*");
@@ -125,5 +124,10 @@ public class GoodsServiceImpl implements GoodsService {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public List<Shop> showShops(Shop shop) {
+		return shopMapper.show(shop);
 	}
 }

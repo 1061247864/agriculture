@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import com.goods.service.GoodsClientService;
 import com.pojo.GoodType;
 import com.pojo.Goods;
+import com.pojo.Shop;
 
 @RestController
 @RequestMapping("/goods")
@@ -46,5 +47,10 @@ public class GoodsController {
 	@RequestMapping("/gettype")
 	public List<GoodType> showType(){
 		return goodsClientService.showType();
+	}
+	
+	@RequestMapping("/getshop")
+	public List<Shop> showShop(Shop shop) {
+		return goodsClientService.showShop();
 	}
 }

@@ -16,7 +16,7 @@
     <result column="categoryLevel3Id" jdbcType="INTEGER" property="categorylevel3id" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
   </resultMap>
-
+<!-- 
 	<select id="show" resultMap="BaseResultMap">
 		select * from goods where 1=1
 		<if test="goods.goodName != null and goods.goodName != ''">
@@ -35,7 +35,7 @@
 			and shop_id=#{goods.shopId}
 		</if>
 	</select>
-
+ -->
 	<insert id="insert">
 		insert goods
 		values(0,#{goods.goodName},#{goods.status},#{goods.price},#{goods.company},
