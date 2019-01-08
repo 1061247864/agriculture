@@ -35,11 +35,6 @@ public class GoodsServiceImpl implements GoodsService {
 	private GoodTypeMapper goodTypeMapper;
 
 	@Override
-	public List<Goods> show(Goods goods) {
-		return goodsMapper.show(goods);
-	}
-
-	@Override
 	public PageInfo<Goods> showGoods(Integer currentPage, Goods goods){
 		/*
 		 * SolrServer server = new HttpSolrServer("http://localhost:8080/solr/#/goods");
