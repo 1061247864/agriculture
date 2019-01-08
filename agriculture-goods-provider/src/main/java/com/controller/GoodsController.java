@@ -23,7 +23,7 @@ public class GoodsController {
 
 	@RequestMapping("/get")
 	public PageInfo<Goods> showGoods(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,
-			@RequestBody Goods goods) throws SolrServerException {
+			@RequestBody Goods goods){
 		return goodsService.showGoods(currentPage, goods);
 	}
 
