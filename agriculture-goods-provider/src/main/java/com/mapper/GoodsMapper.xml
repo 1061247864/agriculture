@@ -26,10 +26,10 @@
 			and categoryLevel1Id=#{goods.categoryLevel1Id}
 		</if>
 		<if test="goods.categoryLevel2Id != null and goods.categoryLevel2Id != ''">
-			and categoryLevel2Id=#{goods。categoryLevel2Id}
+			and categoryLevel2Id=#{goods.categoryLevel2Id}
 		</if>
 		<if test="goods.categoryLevel3Id != null and goods.categoryLevel3Id != ''">
-			and categoryLevel3Id=#{goods。categoryLevel3Id}
+			and categoryLevel3Id=#{goods.categoryLevel3Id}
 		</if>
 		<if test="goods.shopId != null and goods.shopId != ''">
 			and shop_id=#{goods.shopId}
