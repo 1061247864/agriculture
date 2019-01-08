@@ -20,6 +20,7 @@ import org.apache.solr.client.solrj.request.QueryRequest;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.StringUtil;
 import com.mapper.GoodTypeMapper;
 import com.mapper.GoodsMapper;
 import com.pojo.GoodType;
@@ -38,59 +39,58 @@ public class GoodsServiceImpl implements GoodsService {
 	public PageInfo<Goods> showGoods(Integer currentPage, Goods goods) {
 		SolrServer server = new HttpSolrServer("http://localhost:8080/solr/goods");
 		SolrQuery query = new SolrQuery();
-		query.add("q","*:*");
-		/* query.setQuery("*:*"); */
+		StringBuilder queryString = new StringBuilder();
+		if (goods != null) {
 
-		/*
-		 * if (goods.getGoodName() != null && goods.getGoodName() != "") {
-		 * query.add("name:" + goods.getGoodName() + ""); } if (goods.getShopId() != 0)
-		 * { query.add("shop_id:" + goods.getShopId() + ""); } if
-		 * (goods.getCategorylevel1id() != 0) { query.add("categoryLevel1Id:" +
-		 * goods.getCategorylevel1id()); } if (goods.getCategorylevel2id() != 0) {
-		 * query.add("categoryLevel2Id:" + goods.getCategorylevel2id()); } if
-		 * (goods.getCategorylevel3id() != 0) { query.add("categoryLevel3Id:" +
-		 * goods.getCategorylevel3id()); }
-		 */  
-		List<Goods> findG =null;
-		QueryResponse response;
+			if (goods.getGoodName() != null && !"".equals(goods.getGoodName())) {
+				queryString.append("     AND  goodname:" + goods.getGoodName()+"    ");
+			}
+			if (goods.getShopId() != null && goods.getShopId() != 0) {
+				queryString.append("     AND  shop_id:" + goods.getShopId()+"    ");
+			}
+
+			if (goods.getCategorylevel1id() != null && goods.getCategorylevel1id() != 0) {
+				queryString.append("     AND   categoryLevel1Id:" + goods.getCategorylevel1id()+"    ");
+			} else if (goods.getCategorylevel2id() != null && goods.getCategorylevel2id() != 0) {
+				queryString.append("       AND  categoryLevel2Id:" + goods.getCategorylevel2id()+"    ");
+			} else if (goods.getCategorylevel3id() != null && goods.getCategorylevel3id() != 0) {
+				queryString.append("      AND   categoryLevel3Id:" + goods.getCategorylevel3id()+"    ");
+			}
+			if (StringUtil.isEmpty(queryString.toString())) {
+				query.setQuery("*:*");
+			} else {
+				query.setQuery(queryString.toString().substring(queryString.toString().indexOf("AND") + 3,
+						queryString.toString().length()));
+			}
+
+		} else {
+			query.setQuery("*:*");
+		}
+		List<Goods> findG = null;
 		try {
-			response = server.query(query);
-			SolrDocumentList list = response.getResults();
-			findG = new ArrayList<Goods>(list.size());
-			Map<String, Map<String, List<String>>> maplist = response.getHighlighting();
-			for (SolrDocument doc : list) {
+			SolrDocumentList docs = server.query(query).getResults();
+			findG = new ArrayList<Goods>(docs.size());
+			for (SolrDocument doc : docs) {
 				Goods good = new Goods();
-				good.setGoodId(Integer.parseInt(doc.get("id").toString()));
-				Map<String, List<String>> fieldMap = maplist.get(doc.get("id"));
-				List<String> stringlist = fieldMap.get("name");
-
-				good.setGoodName(stringlist.get(0));
-				good.setStatus(Integer.parseInt(doc.get("status").toString().replace("[", "").replace("]", "")));
-				good.setPrice(Double.parseDouble(doc.get("price").toString().replace("[", "").replace("]", "")));
-				good.setCompany(doc.get("company").toString().replace("[", "").replace("]", ""));
-				good.setContext(doc.get("context").toString().replace("[", "").replace("]", ""));
-				good.setSum(Integer.parseInt(doc.get("sum").toString().replace("[", "").replace("]", "")));
-				good.setSumBack(Integer.parseInt(doc.get("sumBack").toString().replace("[", "").replace("]", "")));
-				good.setShopId(Integer.parseInt(doc.get("shopId").toString().replace("[", "").replace("]", "")));
-				good.setCategorylevel1id(
-						Integer.parseInt(doc.get("categorylevel1id").toString().replace("[", "").replace("]", "")));
-				good.setCategorylevel2id(
-						Integer.parseInt(doc.get("categorylevel2id").toString().replace("[", "").replace("]", "")));
-				good.setCategorylevel3id(
-						Integer.parseInt(doc.get("categorylevel3id").toString().replace("[", "").replace("]", "")));
-				good.setPhoto(doc.get("photo").toString().replace("[", "").replace("]", ""));
+				good.setGoodId(Integer.parseInt((String) doc.getFieldValue("id")));
+				good.setGoodName(doc.getFieldValue("goodname").toString());
+				good.setStatus(Integer.parseInt((String) doc.getFieldValue("status")));
+				good.setPrice(Double.parseDouble((String) doc.getFieldValue("goodprice")));
+				good.setCompany(doc.getFieldValue("company").toString());
+				good.setContext(doc.getFieldValue("context").toString());
+				good.setSum(Integer.parseInt((String) doc.getFieldValue("sum")));
+				good.setSumBack(Integer.parseInt((String) doc.getFieldValue("sum_back")));
+				good.setShopId(Integer.parseInt((String) doc.getFieldValue("shop_id")));
+				good.setCategorylevel1id(Integer.parseInt((String) doc.getFieldValue("categoryLevel1Id")));
+				good.setCategorylevel2id(Integer.parseInt((String) doc.getFieldValue("categoryLevel2Id")));
+				good.setCategorylevel3id(Integer.parseInt((String) doc.getFieldValue("categoryLevel3Id")));
+				good.setPhoto(doc.getFieldValue("photo").toString());
 				findG.add(good);
 			}
 
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
-
-		/*
-		 * PageHelper.startPage(currentPage, 2); List<Goods> ggg =
-		 * goodsMapper.show(goods); PageInfo<Goods> pageInfo = new PageInfo<>(ggg);
-		 * return pageInfo;
-		 */
 		PageHelper.startPage(currentPage, 2);
 		PageInfo<Goods> pageInfo = new PageInfo<>(findG);
 		return pageInfo;
