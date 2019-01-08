@@ -17,8 +17,6 @@ public interface GoodsService {
 
 	public int update(Goods goods);
 	
-	public List<Goods> show(Goods goods);
-	
 	public PageInfo<Goods> showGoods(Integer currentPage,Goods goods);
 	
 	public List<GoodType> getGoodTypeList();
