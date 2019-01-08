@@ -2,7 +2,6 @@ package com.controller;
 
 import java.util.List;
 
-import org.apache.solr.client.solrj.SolrServerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +22,7 @@ public class GoodsController {
 
 	@RequestMapping("/get")
 	public PageInfo<Goods> showGoods(@RequestParam(value = "currentPage", required = false,defaultValue="1") Integer currentPage,
-			@RequestBody Goods goods) throws SolrServerException {
+			Goods goods){
 		return goodsService.showGoods(currentPage, goods);
 	}
 
