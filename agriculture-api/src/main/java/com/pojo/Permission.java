@@ -19,7 +19,21 @@ public class Permission implements Serializable {
 
     private Date createDate;
 
-    public Integer getPerId() {
+    private String component;
+    
+    private String perType;
+    
+    
+
+    public String getPerType() {
+		return perType;
+	}
+
+	public void setPerType(String perType) {
+		this.perType = perType;
+	}
+
+	public Integer getPerId() {
         return perId;
     }
 
@@ -57,5 +71,13 @@ public class Permission implements Serializable {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getComponent() {
+        return component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component == null ? null : component.trim();
     }
 }
