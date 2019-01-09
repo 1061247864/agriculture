@@ -21,6 +21,7 @@ import com.pojo.Role;
 import com.pojo.User;
 import com.service.UserClientService;
 import com.util.MySimpleByteSource;
+import com.util.MySimplePrincipalCollection;
 
 
 
