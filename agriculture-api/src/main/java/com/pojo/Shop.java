@@ -21,6 +21,8 @@ public class Shop {
 
     private Double score;
 
+    private String image;
+
     public Integer getShopId() {
         return shopId;
     }
@@ -91,5 +93,13 @@ public class Shop {
 
     public void setScore(Double score) {
         this.score = score;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
     }
 }
