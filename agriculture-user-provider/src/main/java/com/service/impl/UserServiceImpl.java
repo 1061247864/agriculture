@@ -15,6 +15,7 @@ import com.mapper.UserMapper;
 import com.pojo.Permission;
 import com.pojo.Role;
 import com.pojo.User;
+import com.pojo.UserAddressCount;
 import com.service.UserService;
 
 @Service
@@ -73,5 +74,10 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<UserAddressCount> findUserAddressCount() {
+		return userMapper.findUserAddressCount();
 	};
 }

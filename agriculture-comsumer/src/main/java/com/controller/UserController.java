@@ -1,11 +1,14 @@
 package com.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
@@ -20,8 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.google.common.net.MediaType;
-import com.pojo.Role;
+import com.github.pagehelper.PageInfo;
 import com.pojo.User;
 import com.service.UserClientService;
 
@@ -31,12 +33,29 @@ public class UserController {
 	@Autowired
 	private UserClientService userClientService;
 
-	@CrossOrigin(origins= {"http://172.20.10.4:8002","null","*"})
-	@PostMapping(value="/dologin")
-	public User findUserByCode(@RequestParam(value="userCode")String userCode,@RequestParam(value="password") String password) {
+	@CrossOrigin(origins = { "http://172.20.10.4:8002", "null", "*" })
+	@PostMapping(value = "/dologin")
+	public Object findUserByCode(@RequestParam(value = "userCode") String userCode,
+			@RequestParam(value = "password") String password) {
 		UsernamePasswordToken passwordToken = new UsernamePasswordToken(userCode, password);
 		Subject subject = SecurityUtils.getSubject();
-		subject.login(passwordToken);
+		// IncorrectCredentialsException密码错误
+		// UnknownAccountException用户名错误
+		try {
+			subject.login(passwordToken);
+		} catch (UnknownAccountException e) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("message", "用户名不存在");
+			return map;
+		} catch (IncorrectCredentialsException e) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("message", "密码错误！");
+			return map;
+		} catch (Exception e){
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("message", "异常错误,请联系管理员");
+			return map;
+		}
 		return (User) subject.getPrincipal();
 	}
 
@@ -48,16 +67,31 @@ public class UserController {
 	@PostMapping("/registry")
 	public Boolean userRegistry(User user) {
 		String salt = UUID.randomUUID().toString();
-		SimpleHash simpleHash = new SimpleHash("MD5", user.getPassword(), salt,2);
+		SimpleHash simpleHash = new SimpleHash("MD5", user.getPassword(), salt, 2);
 		user.setSalt(salt);
 		user.setPassword(simpleHash.toString());
-		simpleHash=null;
+		simpleHash = null;
 		return userClientService.userRegistry(user);
 	}
-	/*public List<Role> findRoles(){
-		
-		
-	}*/
+
+	/*
+	 * public List<Role> findRoles(){
+	 * 
+	 * 
+	 * }
+	 */
+	
+	
+	@PostMapping("/dofindUsers")
+	public PageInfo<User> findUsers(User user, @RequestParam(value="currentPage",defaultValue="1")Integer currentPage)
+	{
+		return  userClientService.findUsers(user, currentPage);
+	}
+	@PostMapping("/dofindAdmins")
+	public PageInfo<User> findAdmins(User user,  @RequestParam(value="currentPage",defaultValue="1") Integer currentPage)
+	{
+		return userClientService.findAdmins(user, currentPage);
+	}
 
 	@RequestMapping("/findbean")
 	public String findbean(HttpSession session) {
@@ -72,5 +106,6 @@ public class UserController {
 
 		return names;
 	}
+	
 
 }

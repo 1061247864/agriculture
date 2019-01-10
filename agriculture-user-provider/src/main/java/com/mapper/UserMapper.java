@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.pojo.User;
-
+import com.pojo.UserAddressCount;
 
 public interface UserMapper {
 
@@ -19,7 +19,11 @@ public interface UserMapper {
 
 	int updateByPrimaryKeySelective(User record);
 
+	List<UserAddressCount> findUserAddressCount();
+
 	int updateByPrimaryKey(User record);
-	User findUserByCode(@Param("userCode")String userCode);
-	List<User> findAll(@Param("type") Integer type ,@Param("user")User user );
+
+	User findUserByCode(@Param("userCode") String userCode);
+
+	List<User> findAll(@Param("type") Integer type, @Param("user") User user);
 }

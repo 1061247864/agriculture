@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.pojo.User;
+import com.pojo.UserAddressCount;
 import com.service.UserService;
 
 @RestController
@@ -27,14 +30,14 @@ public class UserController {
 	}
 
 	@PostMapping("/findadmins")
-	public PageInfo<User> findAdmins(User user, @RequestParam("currentPage") Integer currentPage) {
+	public PageInfo<User> findAdmins( @RequestBody User user, @RequestParam("currentPage") Integer currentPage) {
 
 		return userService.findAdmins(currentPage, user);
 	}
 
 	// 按条件翻页查询
 	@PostMapping("/findusers")
-	public PageInfo<User> findUsers(User user, @RequestParam("currentPage") Integer currentPage) {
+	public PageInfo<User> findUsers(@RequestBody User user, @RequestParam("currentPage") Integer currentPage) {
 
 		return userService.findUsers(currentPage, user);
 	}
@@ -49,5 +52,9 @@ public class UserController {
 	public Boolean userRegistry(@RequestBody User user) {
 		return userService.userRegistry(user);
 	}
-
+	
+	@GetMapping("/findUserAddressCount")
+	public List<UserAddressCount> findUserAddressCount() {
+		return userService.findUserAddressCount();
+	};
 }
