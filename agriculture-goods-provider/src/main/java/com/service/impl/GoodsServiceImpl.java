@@ -90,7 +90,7 @@ public class GoodsServiceImpl implements GoodsService {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
-		PageHelper.startPage(currentPage, 2);
+		PageHelper.startPage(currentPage, 6);
 		PageInfo<Goods> pageInfo = new PageInfo<>(findG);
 		return pageInfo;
 	}

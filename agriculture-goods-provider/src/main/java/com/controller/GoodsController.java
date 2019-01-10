@@ -3,6 +3,7 @@ package com.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +23,12 @@ public class GoodsController {
 	@RequestMapping("/get")
 	public PageInfo<Goods> showGoods(
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") Integer currentPage,
-			Goods goods) {
+			@RequestBody Goods goods) {
 		return goodsService.showGoods(currentPage, goods);
 	}
 
 	@RequestMapping("/insert")
-	public int insert(Goods goods) {
+	public int insert(@RequestBody Goods goods) {
 		return goodsService.insert(goods);
 	}
 
@@ -37,7 +38,7 @@ public class GoodsController {
 	}
 
 	@RequestMapping("/update")
-	public int update(Goods goods) {
+	public int update(@RequestBody Goods goods) {
 		return goodsService.update(goods);
 	}
 
@@ -47,7 +48,7 @@ public class GoodsController {
 	}
 
 	@RequestMapping("/getshop")
-	public List<Shop> showShop(Shop shop) {
+	public List<Shop> showShop( @RequestBody Shop shop) {
 		return goodsService.showShops(shop);
 	}
 }
