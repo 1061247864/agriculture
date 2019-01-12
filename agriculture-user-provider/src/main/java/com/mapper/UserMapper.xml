@@ -470,4 +470,8 @@
 		user_role)
 		GROUP BY address
 	</select>
+	<!-- 获得当天注册的用户 -->
+	<select id="gerCurrentRegistryUser">
+	SELECT COUNT(1) FROM USER WHERE createDate = DATE_FORMAT(NOW(),"%y-%m-%d")
+	</select>
 </mapper>

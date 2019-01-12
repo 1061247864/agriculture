@@ -1,4 +1,4 @@
-package com.configuration;
+package com.filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-@Configuration
+/*@Configuration*/
 public class CorsConfig {
 
 	   @Bean
@@ -19,7 +19,9 @@ public class CorsConfig {
 	        config.addAllowedOrigin("http://localhost:63342");
 	        config.addAllowedHeader("*");
 	        config.addAllowedMethod("*");// "X-Requested-With, accept, content-type, exception"
-	        config.setAllowCredentials(true);
+/*	        config.addAllowedHeader("X-Requested-With, accept, content-type, exception");
+	        config.addAllowedMethod("GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,PATCH");// "X-Requested-With, accept, content-type, exception"
+*/	        config.setAllowCredentials(true);
 	        //这个请求头在https中会出现,但是有点问题，下面我会说
 	        //config.addExposedHeader("X-forwared-port, X-forwarded-host"); 
 	        source.registerCorsConfiguration("/**", config);

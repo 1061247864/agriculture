@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
@@ -11,7 +12,14 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.session.mgt.SimpleSession;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +41,7 @@ public class UserController {
 	@Autowired
 	private UserClientService userClientService;
 
-	@CrossOrigin(origins = { "http://172.20.10.4:8002", "null", "*" })
+/*	@CrossOrigin(origins = { "http://172.20.10.4:8002", "null", "*" })*/
 	@PostMapping(value = "/dologin")
 	public Object findUserByCode(@RequestParam(value = "userCode") String userCode,
 			@RequestParam(value = "password") String password) {
@@ -51,11 +59,16 @@ public class UserController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("message", "密码错误！");
 			return map;
-		} catch (Exception e){
+		} catch (Exception e) {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("message", "异常错误,请联系管理员");
 			return map;
 		}
+		
+		/*Map<String ,Object> map = new HashMap<String ,Object>();
+		map.put("JSESSION", session.getId());
+		map.put("userinfo", (User) subject.getPrincipal());*/
+		
 		return (User) subject.getPrincipal();
 	}
 
@@ -80,19 +93,36 @@ public class UserController {
 	 * 
 	 * }
 	 */
-	
-	
+
 	@PostMapping("/dofindUsers")
-	public PageInfo<User> findUsers(User user, @RequestParam(value="currentPage",defaultValue="1")Integer currentPage)
-	{
-		return  userClientService.findUsers(user, currentPage);
+	public PageInfo<User> findUsers(User user,
+			@RequestParam(value = "currentPage", defaultValue = "1") Integer currentPage) {
+		return userClientService.findUsers(user, currentPage);
 	}
+
 	@PostMapping("/dofindAdmins")
-	public PageInfo<User> findAdmins(User user,  @RequestParam(value="currentPage",defaultValue="1") Integer currentPage)
-	{
+	public PageInfo<User> findAdmins(User user,
+			@RequestParam(value = "currentPage", defaultValue = "1") Integer currentPage) {
 		return userClientService.findAdmins(user, currentPage);
 	}
 
+	@GetMapping("/getCurrentUser")
+	public User getCurrentUser() {
+	//	DefaultWebSessionManager sessionManager = (DefaultWebSessionManager)getSessionManager();
+		Subject subject = SecurityUtils.getSubject();
+		User principal = (User) subject.getPrincipal();
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		/*map.put("JSESSION", session.getId());
+		map.put("user", principal);*/
+		return principal == null ? null : principal;
+	}
+
+	public SessionManager  getSessionManager() {
+		DefaultWebSecurityManager securityManager =(DefaultWebSecurityManager) SecurityUtils.getSecurityManager();
+		return securityManager.getSessionManager();
+	
+	}
 	@RequestMapping("/findbean")
 	public String findbean(HttpSession session) {
 		WebApplicationContext webApplicationContext = WebApplicationContextUtils
@@ -106,6 +136,5 @@ public class UserController {
 
 		return names;
 	}
-	
 
 }
