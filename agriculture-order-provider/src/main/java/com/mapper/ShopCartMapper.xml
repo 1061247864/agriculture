@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ShopCartMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.ShopCart">
+    <id column="sid" jdbcType="INTEGER" property="shopcId" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="price_Count" jdbcType="VARCHAR" property="priceCount" />
+    
+    <collection property="shopcItem" ofType="com.pojo.ShopcItem">
+    <id column="shopcitem_id" jdbcType="INTEGER" property="shopcitemId" />
+    <result column="scid" jdbcType="INTEGER" property="shopcId" />
+    <result column="sgid" jdbcType="INTEGER" property="goodId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    
+    <association property="goods" javaType="com.pojo.Goods">
+    <id column="gid" jdbcType="INTEGER" property="goodId" />
+    <result column="good_name" jdbcType="VARCHAR" property="goodName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="context" jdbcType="VARCHAR" property="context" />
+    <result column="sum" jdbcType="INTEGER" property="sum" />
+    <result column="sum_back" jdbcType="INTEGER" property="sumBack" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="categoryLevel1Id" jdbcType="INTEGER" property="categorylevel1id" />
+    <result column="categoryLevel2Id" jdbcType="INTEGER" property="categorylevel2id" />
+    <result column="categoryLevel3Id" jdbcType="INTEGER" property="categorylevel3id" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    </association>
+    
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    shopc_id, createDate, user_id, price_Count
+  </sql>
+  <!-- <select id="selectByExample" parameterType="com.pojo.ShopCartExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_cart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select> -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	SELECT
+	sc.shopc_id sid, sc.createDate, sc.user_id, sc.price_Count,
+	si.`shopcitem_id`,si.`shopc_id` scid,si.`good_id` sgid,si.`count`,
+	g.`good_id`
+	gid,g.`good_name`,g.`status`,g.`price`,g.`company`,g.`context`,g.`sum`,g.`sum_back`,g.`shop_id`,g.`categoryLevel1Id`,g.`categoryLevel2Id`,g.`categoryLevel3Id`,g.`photo`
+	FROM shop_cart sc,`shopc_item` si,`goods` g
+	WHERE sc.shopc_id = #{shopcId,jdbcType=INTEGER} AND
+	sc.`shopc_id`=si.`shopc_id` AND si.`good_id`=g.`good_id`
+<!--     select 
+    shopc_id, createDate, user_id, price_Count
+    from shop_cart
+    where shopc_id = #{shopcId,jdbcType=INTEGER} -->
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shop_cart
+    where shopc_id = #{shopcId,jdbcType=INTEGER}
+  </delete>
+  <!-- <delete id="deleteByExample" parameterType="com.pojo.ShopCartExample">
+    delete from shop_cart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete> -->
+  <insert id="insert" parameterType="com.pojo.ShopCart">
+  <selectKey keyProperty="shopcId" resultType="java.lang.Integer" order="AFTER">
+  SELECT LAST_INSERT_Id();
+  </selectKey>
+    insert into shop_cart (shopc_id, createDate, user_id, 
+      price_Count)
+    values (#{shopcId,jdbcType=INTEGER}, NOW(), 1, 
+      #{priceCount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.ShopCart">
+    insert into shop_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopcId != null">
+        shopc_id,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="priceCount != null">
+        price_Count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopcId != null">
+        #{shopcId,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="priceCount != null">
+        #{priceCount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- <select id="countByExample" parameterType="com.pojo.ShopCartExample" resultType="java.lang.Long">
+    select count(*) from shop_cart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select> -->
+  <!-- <update id="updateByExampleSelective" parameterType="map">
+    update shop_cart
+    <set>
+      <if test="record.shopcId != null">
+        shopc_id = #{record.shopcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdate != null">
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceCount != null">
+        price_Count = #{record.priceCount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update> -->
+  <!-- <update id="updateByExample" parameterType="map">
+    update shop_cart
+    set shopc_id = #{record.shopcId,jdbcType=INTEGER},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      price_Count = #{record.priceCount,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update> -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.ShopCart">
+    update shop_cart
+    <set>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="priceCount != null">
+        price_Count = #{priceCount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shopc_id = #{shopcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.ShopCart">
+    update shop_cart
+    set createDate = #{createdate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      price_Count = #{priceCount,jdbcType=VARCHAR}
+    where shopc_id = #{shopcId,jdbcType=INTEGER}
+  </update>
+</mapper>
