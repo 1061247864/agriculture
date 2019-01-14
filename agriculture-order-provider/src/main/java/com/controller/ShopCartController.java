@@ -47,4 +47,11 @@ public class ShopCartController {
 		}
 		return returnShopCart;
 	}
+	
+	
+	@PostMapping("getShopCartById")
+	public ShopCart getShopCartById(@RequestBody ShopCart shopCart) {
+		ShopCart shopCar = shopCartService.selectByShopcId(shopCart.getShopcId());
+		return shopCar;
+	}
 }

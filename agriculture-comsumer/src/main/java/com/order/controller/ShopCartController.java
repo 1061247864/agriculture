@@ -21,4 +21,9 @@ public class ShopCartController {
 		return shopCartClientService.addShopCart(shopCart,goodId,count);
 	}
 
+	@PostMapping("getShopCartById")
+	public ShopCart getShopCartById(ShopCart shopCart) {
+		return shopCartClientService.getShopCartById(shopCart);
+	}
+	
 }

@@ -11,4 +11,7 @@ import com.pojo.ShopCart;
 public interface ShopCartClientService {
 	@PostMapping("shopCart/addShopCart")
 	public ShopCart addShopCart(ShopCart shopCart,@RequestParam("goodId") int goodId,@RequestParam("count")int count);
+	
+	@PostMapping("shopCart/getShopCartById")
+	public ShopCart getShopCartById(ShopCart shopCart);
 }

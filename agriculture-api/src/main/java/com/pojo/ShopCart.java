@@ -1,6 +1,7 @@
 package com.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class ShopCart {
     private Integer shopcId;
@@ -10,8 +11,21 @@ public class ShopCart {
     private Integer userId;
 
     private String priceCount;
+    
+    private List<ShopcItem> shopcItem;
+    
+    
 
-    public Integer getShopcId() {
+
+	public List<ShopcItem> getShopcItem() {
+		return shopcItem;
+	}
+
+	public void setShopcItem(List<ShopcItem> shopcItem) {
+		this.shopcItem = shopcItem;
+	}
+
+	public Integer getShopcId() {
         return shopcId;
     }
 
