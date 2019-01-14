@@ -3,8 +3,9 @@
 #    name: agriculture-zuul#  redis:#    host: localhost
 #    port: 6379
  
-ribbon:  eager-load:    enabled: true
-
+#ribbon:#  eager-load:#    enabled: true
+#  ReadTimeout: 60000
+#  ConnectTimeout: 60000
 server:
   port: 4433
 
@@ -22,12 +23,28 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
+  
 zuul:
+  max:
+    host:
+     connections: 500
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+    
+  retryable: false
   sensitive-headers:   ignored-headers:   
   ignored-services: "*"
   routes:     userprovider: userv/**     consumer: consumer/**
      goodsprovider: goods/**
 
-
-     
+     hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
     

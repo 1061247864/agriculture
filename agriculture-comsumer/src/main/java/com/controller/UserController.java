@@ -1,10 +1,11 @@
 package com.controller;
 
 import java.util.HashMap;
+
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
@@ -12,16 +13,10 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionManager;
-import org.apache.shiro.session.mgt.SimpleSession;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,12 +29,16 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.github.pagehelper.PageInfo;
 import com.pojo.User;
 import com.service.UserClientService;
+import com.util.MailClient;
+import com.util.UserStatusException;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
 	private UserClientService userClientService;
+	@Autowired
+	MailClient maulClient;
 
 /*	@CrossOrigin(origins = { "http://172.20.10.4:8002", "null", "*" })*/
 	@PostMapping(value = "/dologin")
@@ -59,6 +58,10 @@ public class UserController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("message", "密码错误！");
 			return map;
+		}catch (UserStatusException e) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("message", "账户未激活,请前去您的邮箱激活账户！");
+			return map;
 		} catch (Exception e) {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("message", "异常错误,请联系管理员");
@@ -71,20 +74,34 @@ public class UserController {
 		
 		return (User) subject.getPrincipal();
 	}
-
+	
 	@GetMapping("/getuser/{id}")
 	public User getUserById(@PathVariable("id") Integer id) {
 		return userClientService.findUserById(id.toString());
 	}
 
 	@PostMapping("/registry")
-	public Boolean userRegistry(User user) {
+	public Map userRegistry(User user) {
+		Map<String ,String> map = new HashMap<String ,String>();
 		String salt = UUID.randomUUID().toString();
 		SimpleHash simpleHash = new SimpleHash("MD5", user.getPassword(), salt, 2);
 		user.setSalt(salt);
 		user.setPassword(simpleHash.toString());
+		user.setStatus(0);
+		Boolean userRegistry = userClientService.userRegistry(user);
+		try {
+			maulClient.sendMail(user.getEmail(),user.getUserCode());
+		} catch (MessagingException e) {
+			map.put("message", "服务器繁忙发,请稍后重试");
+			map.put("isregistry", "false");
+			return map;
+		}
 		simpleHash = null;
-		return userClientService.userRegistry(user);
+		if(userRegistry) {
+		map.put("isregistry", "true");
+		map.put("message", "恭喜您，注册成功请前去 邮箱激活您的账户！");
+		}
+		return map;
 	}
 
 	/*
@@ -93,6 +110,16 @@ public class UserController {
 	 * 
 	 * }
 	 */
+	@GetMapping("sendMail")
+    public String sendEmail(@RequestParam("toEmail")String toEmail) throws MessagingException
+    {
+    	try {
+    		maulClient.sendMail(toEmail, "12332112345657");
+		} catch (Exception e) {
+			  return "error";
+		}
+      return "success";
+    }
 
 	@PostMapping("/dofindUsers")
 	public PageInfo<User> findUsers(User user,
@@ -133,7 +160,6 @@ public class UserController {
 		for (String string : beanDefinitionNames) {
 			names += string + "<br/>";
 		}
-
 		return names;
 	}
 

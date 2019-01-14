@@ -22,6 +22,7 @@ import com.pojo.User;
 import com.service.UserClientService;
 import com.util.MySimpleByteSource;
 import com.util.MySimplePrincipalCollection;
+import com.util.UserStatusException;
 
 
 
@@ -73,6 +74,10 @@ public class LoanRealm extends AuthorizingRealm {
 		User login = userClientService.findUserByCode(userCode);
 		if (login == null) {
 			return null;
+		}
+		if(login.getStatus()==0)
+		{
+			throw new UserStatusException();
 		}
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(login, login.getPassword(),
 				new MySimpleByteSource(login.getSalt()), this.getName());

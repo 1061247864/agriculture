@@ -152,9 +152,9 @@
 			<if test="sex != null">
 				sex,
 			</if>
-			<if test="createdate != null">
+		
 				createDate,
-			</if>
+		
 			<if test="lastLogin != null">
 				last_Login,
 			</if>
@@ -196,9 +196,7 @@
 			<if test="sex != null">
 				#{sex,jdbcType=INTEGER},
 			</if>
-			<if test="createdate != null">
-				#{createdate,jdbcType=TIMESTAMP},
-			</if>
+				NOW(),
 			<if test="lastLogin != null">
 				#{lastLogin,jdbcType=TIMESTAMP},
 			</if>
