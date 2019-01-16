@@ -23,5 +23,8 @@ public interface UserService {
 
 	List<UserAddressCount> findUserAddressCount();
 
+	User userIsExistence(String userCode,String email);
 	public Boolean userRegistry(User user);
+	
+	 Integer updateUserStatus(String userCode);
 }

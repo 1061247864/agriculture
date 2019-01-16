@@ -17,6 +17,9 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSendException;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +66,12 @@ public class UserController {
 			map.put("message", "账户未激活,请前去您的邮箱激活账户！");
 			return map;
 		} catch (Exception e) {
+			if(e.getCause() instanceof UserStatusException)
+			{
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("message","账户未激活,请前去您的邮箱激活账户！");
+				return map;
+			}
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("message", "异常错误,请联系管理员");
 			return map;
@@ -81,6 +90,7 @@ public class UserController {
 	}
 
 	@PostMapping("/registry")
+	@Transactional
 	public Map userRegistry(User user) {
 		Map<String ,String> map = new HashMap<String ,String>();
 		String salt = UUID.randomUUID().toString();
@@ -92,6 +102,14 @@ public class UserController {
 		try {
 			maulClient.sendMail(user.getEmail(),user.getUserCode());
 		} catch (MessagingException e) {
+			map.put("message", "服务器繁忙发,请稍后重试");
+			map.put("isregistry", "false");
+			return map;
+		} catch (MailSendException e) {
+			map.put("message", "邮箱号不存在，请输入正确的邮箱号！");
+			map.put("isregistry", "false");
+			return map;
+		}catch (Exception e) {
 			map.put("message", "服务器繁忙发,请稍后重试");
 			map.put("isregistry", "false");
 			return map;

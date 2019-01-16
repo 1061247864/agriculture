@@ -457,7 +457,16 @@
 		rp.role_id=r.role_id
 		LEFT JOIN permission p ON p.per_id=rp.per_id
 		WHERE
-		u.user_code=#{userCode}
+		u.user_code=#{userCode} or u.email = #{userCode}
+	</select>
+	<select id="userIsExistence" resultMap="BaseResultMap">
+		SELECT 
+		user_code,email
+		FROM USER  
+		WHERE 
+		user_code=#{userCode} 
+		or email = #{userCode} or user_code=#{email} 
+		or email = #{email}
 	</select>
 	<select id="findUserAddressCount" resultType="userAddressCount">
 		SELECT
@@ -472,4 +481,10 @@
 	<select id="gerCurrentRegistryUser">
 	SELECT COUNT(1) FROM USER WHERE createDate = DATE_FORMAT(NOW(),"%y-%m-%d")
 	</select>
+	<update id="updateUserStatus">
+   UPDATE USER  
+   SET STATUS =1 
+   WHERE
+   user_code=#{userCode}	
+	</update>
 </mapper>

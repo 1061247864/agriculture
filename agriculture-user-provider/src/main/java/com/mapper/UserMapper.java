@@ -22,8 +22,10 @@ public interface UserMapper {
 	List<UserAddressCount> findUserAddressCount();
 
 	int updateByPrimaryKey(User record);
+	User userIsExistence(@Param("userCode") String userCode,@Param("email")String email);
 
 	User findUserByCode(@Param("userCode") String userCode);
 
 	List<User> findAll(@Param("type") Integer type, @Param("user") User user);
+	 Integer updateUserStatus(String userCode);
 }

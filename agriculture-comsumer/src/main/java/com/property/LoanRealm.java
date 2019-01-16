@@ -69,7 +69,7 @@ public class LoanRealm extends AuthorizingRealm {
 
 	
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws  UserStatusException{
 		String userCode = (String) token.getPrincipal();
 		User login = userClientService.findUserByCode(userCode);
 		if (login == null) {

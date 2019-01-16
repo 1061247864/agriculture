@@ -79,5 +79,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserAddressCount> findUserAddressCount() {
 		return userMapper.findUserAddressCount();
+	}
+
+	@Override
+	public User userIsExistence(String userCode,String email) {
+		return userMapper.userIsExistence(userCode,email);
+	}
+
+	@Override
+	public Integer updateUserStatus(String userCode) {
+		return userMapper.updateUserStatus(userCode);
 	};
+	
+	
+	
 }

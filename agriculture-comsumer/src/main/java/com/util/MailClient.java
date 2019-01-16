@@ -27,7 +27,7 @@ public class MailClient {
 		MimeMessageHelper messageHelper = new MimeMessageHelper(createMimeMessage);
 		messageHelper.setTo(to);
 		messageHelper.setSubject(subject);
-		messageHelper.setText("<a href='"+updataAddress+"userCode="+userCode+"'>"+context+"</a>",true);
+		messageHelper.setText("<a href='"+updataAddress+"?userCode="+userCode+"'>"+context+"</a>",true);
 		messageHelper.setFrom(javaMailSenderImpl.getUsername());
 		javaMailSenderImpl.send(createMimeMessage);
 		

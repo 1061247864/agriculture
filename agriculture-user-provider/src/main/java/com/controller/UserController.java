@@ -1,6 +1,8 @@
 package com.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,7 @@ public class UserController {
 	}
 
 	@PostMapping("/findadmins")
-	public PageInfo<User> findAdmins( @RequestBody User user, @RequestParam("currentPage") Integer currentPage) {
+	public PageInfo<User> findAdmins(@RequestBody User user, @RequestParam("currentPage") Integer currentPage) {
 
 		return userService.findAdmins(currentPage, user);
 	}
@@ -52,9 +54,40 @@ public class UserController {
 	public Boolean userRegistry(@RequestBody User user) {
 		return userService.userRegistry(user);
 	}
-	
+
 	@GetMapping("/findUserAddressCount")
 	public List<UserAddressCount> findUserAddressCount() {
 		return userService.findUserAddressCount();
-	};
+	}
+
+	@PostMapping("/isExistence")
+	public Map<String, String> isExistence(@RequestParam("userCode") String userCode,
+			@RequestParam("email") String email) {
+		User userIsExistence = userService.userIsExistence(userCode, email);
+		if (userIsExistence != null) {
+			Map<String, String> map = new HashMap<String, String>();
+			if (userCode.equals(userIsExistence.getUserCode())) {
+
+				map.put("message", "用户名已存在！");
+			} else if (userCode.equals(userIsExistence.getEmail())) {
+				
+				map.put("message", "用户名已存在！");
+			}else if(email.equals(userIsExistence.getUserCode()))
+			{
+				map.put("message", "邮箱已存在！");
+			}else if(email.equals(userIsExistence.getEmail())) {
+				map.put("message", "邮箱已存在！");
+			}
+			return map;
+		}
+		return null;
+	}
+
+	@GetMapping("/updateUserStatus")
+	public Boolean updateUserStatus(@RequestParam("userCode") String userCode) {
+		if (userService.updateUserStatus(userCode) > 0) {
+			return true;
+		}
+		return false;
+	}
 }
