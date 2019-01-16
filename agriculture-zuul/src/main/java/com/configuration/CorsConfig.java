@@ -16,7 +16,7 @@ public class CorsConfig {
 	        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	        final CorsConfiguration config = new CorsConfiguration();
 	        config.setAllowCredentials(true);
-	        config.addAllowedOrigin("http://localhost:63342");
+	        config.addAllowedOrigin("http://localhost:7999");
 	        config.addAllowedHeader("*");
 	        config.addAllowedMethod("*");// "X-Requested-With, accept, content-type, exception"
 	        config.setAllowCredentials(true);
