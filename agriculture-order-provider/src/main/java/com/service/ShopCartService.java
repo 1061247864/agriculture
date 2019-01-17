@@ -9,5 +9,5 @@ public interface ShopCartService {
 	
 	ShopCart selectByShopcId(Integer shopcId);
 	
-	
+	int delShopCart(Integer shopcId);
 }

@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,18 @@ public class ShopCartItemServiceImpl implements ShopCartItemService{
 	public int addItem(ShopcItem shopcItem) {
 		// TODO Auto-generated method stub
 		return shopcItemMapper.insert(shopcItem);
+	}
+
+	@Override
+	public int updItem(ShopcItem shopcItem) {
+		// TODO Auto-generated method stub
+		return shopcItemMapper.updateByPrimaryKeySelective(shopcItem);
+	}
+
+	@Override
+	public int delItem(List<Integer> list) {
+		// TODO Auto-generated method stub
+		return shopcItemMapper.delShopCartItem(list);
 	}
 
 }

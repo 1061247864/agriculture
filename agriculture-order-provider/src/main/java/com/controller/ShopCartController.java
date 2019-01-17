@@ -2,6 +2,8 @@ package com.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pojo.ShopCart;
 import com.pojo.ShopcItem;
+import com.pojo.ShopcItemVo;
 import com.service.ShopCartItemService;
 import com.service.ShopCartService;
 
@@ -53,5 +56,35 @@ public class ShopCartController {
 	public ShopCart getShopCartById(@RequestBody ShopCart shopCart) {
 		ShopCart shopCar = shopCartService.selectByShopcId(shopCart.getShopcId());
 		return shopCar;
+	}
+	
+	
+	@PostMapping("updShopcItem")
+	public ShopCart updShopcItem(@RequestBody ShopcItem shopcItem,@RequestParam("shopcId")Integer shopcId) {
+		int flag = shopCartItemService.updItem(shopcItem);
+		ShopCart shopCart = shopCartService.selectByShopcId(shopcId);
+		if (flag>0) {
+			shopCart = shopCartService.selectByShopcId(shopcId);
+		}
+		return shopCart;
+		
+	}
+	
+	@PostMapping("delCartItems")
+	public ShopCart delCartItems(@RequestBody ShopcItemVo shopcItemVo,@RequestParam("shopcId")Integer shopcId)
+	{
+		int flag = shopCartItemService.delItem(shopcItemVo.getItemId());
+		if (flag>0) {
+			ShopCart shopCart = shopCartService.selectByShopcId(shopcId);
+			if (shopCart==null) {
+				int bool = shopCartService.delShopCart(shopcId);
+				if (bool>0) {
+					return null;
+				}
+			}else {
+				return shopCart;
+			}
+		}
+		return shopCartService.selectByShopcId(shopcId);
 	}
 }

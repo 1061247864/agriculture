@@ -31,4 +31,10 @@ public class ShopCartServiceImpl implements ShopCartService {
 		return shopCartMapper.selectByPrimaryKey(shopcId);
 	}
 
+	@Override
+	public int delShopCart(Integer shopcId) {
+		// TODO Auto-generated method stub
+		return shopCartMapper.deleteByPrimaryKey(shopcId);
+	}
+
 }
