@@ -8,4 +8,5 @@ import com.pojo.Shop;
 
 public interface ShopMapper {
 	List<Shop> show(@Param("shop")Shop shop);
+	void delshop(int id);
 }

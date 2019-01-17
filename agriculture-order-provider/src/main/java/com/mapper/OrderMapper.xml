@@ -244,5 +244,9 @@
     and o.`status` = #{order.status}
     </if>
   </select>
+  <update id="updatesorder" >
+    update `order` set status = #{idvalue} where order_id = #{id}
+  </update>
+  
   
 </mapper>

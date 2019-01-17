@@ -24,4 +24,8 @@ public interface OrderClientService {
 
 	@RequestMapping("order/updOrder")
 	public int updOrder(Order order);
+
+	@RequestMapping("order/updatesorder")
+	int updatesorder(@RequestParam(value = "orderId") Integer orderId, @RequestParam(value = "status") Integer status);
+
 }

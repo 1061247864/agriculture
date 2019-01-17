@@ -44,4 +44,10 @@ public class OrderController {
 		return orderService.updOrder(order);
 		
 	}
+	@RequestMapping("updatesorder")
+	public int updatesorder(Integer orderId,Integer status) {
+		 orderService.updatesorder(orderId, status+1);
+		 return 1;
+	}
+
 }

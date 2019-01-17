@@ -22,4 +22,7 @@
 			and shop_name like concat('%',#{shop.shopName},'%')
 		</if>
 	</select>
+	<delete id="delshop" >
+		delete from shop where shop_id = #{id}
+	</delete>
 </mapper>

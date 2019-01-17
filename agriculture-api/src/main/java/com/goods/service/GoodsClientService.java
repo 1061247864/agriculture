@@ -33,4 +33,10 @@ public interface GoodsClientService {
 	
 	@RequestMapping("/goods/getshop")
 	public List<Shop> showShop();
+
+	@RequestMapping("/goods/delshop")
+	public int delshop(@RequestParam("id")int id);
+
+	@RequestMapping("/goods/goodsList")
+	public PageInfo<Goods> goodsList();
 }

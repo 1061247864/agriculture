@@ -43,5 +43,10 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return orderMapper.updateByPrimaryKeySelective(order);
 	}
+	@Override
+	public void updatesorder(Integer id, Integer idvalue) {
+		orderMapper.updatesorder( id,  idvalue);
+	}
+
 
 }

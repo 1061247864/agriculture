@@ -1,5 +1,7 @@
 package com.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,4 +17,7 @@ public interface GoodsMapper {
 	int update(@Param("goods") Goods goods);
 	
 	/* List<Goods> show(@Param("goods") Goods goods); */
+	List<Goods> goodsList();
+
+
 }

@@ -31,4 +31,6 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+    void updatesorder(@Param("id") Integer id,@Param("idvalue") Integer idvalue);
+
 }

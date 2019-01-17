@@ -40,4 +40,11 @@ public class OrderController {
 		return orderClientService.updOrder(order);
 
 	}
+	@RequestMapping("/updatesorder")
+	public int updatesorder(@RequestParam(value = "orderId")Integer orderId,@RequestParam(value = "status")Integer status) {
+		orderClientService.updatesorder(orderId, status);
+		return 1;
+	}
+
+	
 }

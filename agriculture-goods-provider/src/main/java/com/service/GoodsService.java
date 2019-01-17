@@ -23,4 +23,8 @@ public interface GoodsService {
 	public List<GoodType> getGoodTypeList();
 	
 	public List<Shop> showShops(Shop shop);
+
+public PageInfo<Goods> goodsList();
+void delshop(int id);
+
 }

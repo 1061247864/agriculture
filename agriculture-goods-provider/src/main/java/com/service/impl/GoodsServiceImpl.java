@@ -126,8 +126,25 @@ public class GoodsServiceImpl implements GoodsService {
 		return list;
 	}
 
-	@Override
+
+	
+
 	public List<Shop> showShops(Shop shop) {
 		return shopMapper.show(shop);
 	}
+
+	@Override
+	public void delshop(int id) {
+		shopMapper.delshop(id);
+	}
+
+	@Override
+	public PageInfo<Goods> goodsList() {
+		List<Goods> goodsPageInfo = goodsMapper.goodsList();
+
+		PageHelper.startPage(1, 20);
+		PageInfo<Goods> pageInfo = new PageInfo<>(goodsPageInfo);
+		return pageInfo;
+	}
+
 }

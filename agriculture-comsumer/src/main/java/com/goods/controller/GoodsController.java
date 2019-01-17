@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +42,6 @@ public class GoodsController {
 		return goodsClientService.update(goods);
 	}
 	
-/*	@CrossOrigin(origins = {"http://127.0.0.1:8020", "null","*"})*/
 	@RequestMapping("/gettype")
 	public List<GoodType> showType(){
 		return goodsClientService.showType();
@@ -52,5 +50,16 @@ public class GoodsController {
 	@RequestMapping("/getshop")
 	public List<Shop> showShop(Shop shop) {
 		return goodsClientService.showShop();
+	}
+
+	@RequestMapping("/delshop")
+	public int delshop(@RequestParam("id")int id) {
+		goodsClientService.delshop(id);
+		return 1;
+	}
+
+	@RequestMapping("/goodsList")
+	public PageInfo<Goods> goodsList() {
+		return goodsClientService.goodsList();
 	}
 }

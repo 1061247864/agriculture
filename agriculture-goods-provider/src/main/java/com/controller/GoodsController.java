@@ -51,4 +51,14 @@ public class GoodsController {
 	public List<Shop> showShop( @RequestBody Shop shop) {
 		return goodsService.showShops(shop);
 	}
+	@RequestMapping("/delshop")
+	public int delshop(@RequestParam("id")int id) {
+		goodsService.delshop(id);
+		return 1;
+	}
+
+	@RequestMapping("/goodsList")
+	public PageInfo<Goods> goodsList() {
+		return goodsService.goodsList();
+	}
 }

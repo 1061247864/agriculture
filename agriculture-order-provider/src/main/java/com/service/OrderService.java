@@ -8,4 +8,6 @@ public interface OrderService {
 	int delOrderById(Integer id);
 	int addOrder(Order order);
 	int updOrder(Order order);
+	void updatesorder(Integer id,Integer idvalue);
+
 }
