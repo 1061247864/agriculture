@@ -30,4 +30,6 @@ public interface ShopcItemMapper {
     int updateByPrimaryKey(ShopcItem record);
     
     List<ShopcItem> selectByshopcId(Integer shopcId);
+    
+    int delShopCartItem(@Param("items")List<Integer>  items);
 }
