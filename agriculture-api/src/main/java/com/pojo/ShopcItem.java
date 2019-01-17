@@ -6,8 +6,32 @@ public class ShopcItem {
     private Integer shopcId;
 
     private Integer goodId;
+    
+    private Integer count;
+    
+    
+    private Goods goods;
+    
+    
 
-    public Integer getShopcitemId() {
+
+	public Goods getGoods() {
+		return goods;
+	}
+
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public Integer getShopcitemId() {
         return shopcitemId;
     }
 

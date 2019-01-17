@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ShopcItemMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.ShopcItem">
+    <id column="shopcitem_id" jdbcType="INTEGER" property="shopcitemId" />
+    <result column="shopc_id" jdbcType="INTEGER" property="shopcId" />
+    <result column="good_id" jdbcType="INTEGER" property="goodId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <association property="goods" javaType="com.pojo.Goods">
+    <id column="gid" jdbcType="INTEGER" property="goodId" />
+    <result column="good_name" jdbcType="VARCHAR" property="goodName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="context" jdbcType="VARCHAR" property="context" />
+    <result column="sum" jdbcType="INTEGER" property="sum" />
+    <result column="sum_back" jdbcType="INTEGER" property="sumBack" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    shopcitem_id, shopc_id, good_id
+  </sql>
+  <!-- <select id="selectByExample" parameterType="com.pojo.ShopcItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shopc_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select> -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopc_item
+    where shopcitem_id = #{shopcitemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shopc_item
+    where shopcitem_id = #{shopcitemId,jdbcType=INTEGER}
+  </delete>
+  <!-- <delete id="deleteByExample" parameterType="com.pojo.ShopcItemExample">
+    delete from shopc_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete> -->
+  <insert id="insert" parameterType="com.pojo.ShopcItem">
+    insert into shopc_item (shopcitem_id, shopc_id, good_id,count
+      )
+    values (#{shopcitemId,jdbcType=INTEGER}, #{shopcId,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER},#{count,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.ShopcItem">
+    insert into shopc_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopcitemId != null">
+        shopcitem_id,
+      </if>
+      <if test="shopcId != null">
+        shopc_id,
+      </if>
+      <if test="goodId != null">
+        good_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopcitemId != null">
+        #{shopcitemId,jdbcType=INTEGER},
+      </if>
+      <if test="shopcId != null">
+        #{shopcId,jdbcType=INTEGER},
+      </if>
+      <if test="goodId != null">
+        #{goodId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <!-- <select id="countByExample" parameterType="com.pojo.ShopcItemExample" resultType="java.lang.Long">
+    select count(*) from shopc_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select> -->
+  <!-- <update id="updateByExampleSelective" parameterType="map">
+    update shopc_item
+    <set>
+      <if test="record.shopcitemId != null">
+        shopcitem_id = #{record.shopcitemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopcId != null">
+        shopc_id = #{record.shopcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodId != null">
+        good_id = #{record.goodId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update> -->
+  <!-- <update id="updateByExample" parameterType="map">
+    update shopc_item
+    set shopcitem_id = #{record.shopcitemId,jdbcType=INTEGER},
+      shopc_id = #{record.shopcId,jdbcType=INTEGER},
+      good_id = #{record.goodId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update> -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.ShopcItem">
+    update shopc_item
+    <set>
+      <if test="shopcId != null">
+        shopc_id = #{shopcId,jdbcType=INTEGER},
+      </if>
+      <if test="goodId != null">
+        good_id = #{goodId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where shopcitem_id = #{shopcitemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.ShopcItem">
+    update shopc_item
+    set shopc_id = #{shopcId,jdbcType=INTEGER},
+      good_id = #{goodId,jdbcType=INTEGER}
+    where shopcitem_id = #{shopcitemId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectByshopcId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopc_item
+    where shopcitem_id = #{shopcId,jdbcType=INTEGER}
+  </select>
+</mapper>
