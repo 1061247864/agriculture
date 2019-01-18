@@ -37,7 +37,11 @@ zuul:
   ignored-services: "*"
   routes:     userprovider: userv/**     consumer: consumer/**
      goodsprovider: goods/**
+     pay: pay/**
 
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 60000
      hystrix:
   command:
     default:
