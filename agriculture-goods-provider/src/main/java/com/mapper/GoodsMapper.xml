@@ -22,26 +22,26 @@
 	</resultMap>
 	<!-- <select id="show" resultMap="BaseResultMap"> select * from goods where 
 		1=1 <if test="goods.goodName != null and goods.goodName != ''"> and good_name 
-		like concat('%',#{goods.goodName},'%') </if> <if test="goods.categoryLevel1Id 
-		!= null and goods.categoryLevel1Id != ''"> and categoryLevel1Id=#{goods.categoryLevel1Id} 
-		</if> <if test="goods.categoryLevel2Id != null and goods.categoryLevel2Id 
-		!= ''"> and categoryLevel2Id=#{goods.categoryLevel2Id} </if> <if test="goods.categoryLevel3Id 
-		!= null and goods.categoryLevel3Id != ''"> and categoryLevel3Id=#{goods.categoryLevel3Id} 
+		like concat('%',#{goods.goodName},'%') </if> <if test="goods.categorylevel1id 
+		!= null and goods.categorylevel1id != ''"> and categoryLevel1Id=#{goods.categorylevel1id} 
+		</if> <if test="goods.categorylevel2id != null and goods.categorylevel2id 
+		!= ''"> and categoryLevel2Id=#{goods.categorylevel2id} </if> <if test="goods.categorylevel3id 
+		!= null and goods.categorylevel3id != ''"> and categoryLevel3Id=#{goods.categorylevel3id} 
 		</if> <if test="goods.shopId != null and goods.shopId != ''"> and shop_id=#{goods.shopId} 
 		</if> </select> -->
 	<insert id="insert">
 		insert goods
 		values(0,#{goods.goodName},#{goods.status},#{goods.price},#{goods.company},
-		#{goods.context},#{goods.sum},#{goods.sumBack},#{goods.shopId},#{goods.tegoryLevel1Id},
-		#{goods.categoryLevel2Id},#{goods.categoryLevel3Id},#{goods.photo})
+		#{goods.context},#{goods.sum},#{goods.sumBack},#{goods.shopId},#{goods.categorylevel1id},
+		#{goods.categorylevel2id},#{goods.categorylevel3id},#{goods.photo})
 	</insert>
 
 	<update id="update">
 		update goods set
 		good_name=#{goods.goodName},status=#{goods.status},price=#{goods.price},
 		company=#{goods.company},context=#{goods.context},sum=#{goods.sum},
-		sum_back=#{goods.sumBack},shop_id=#{goods.shopId},tegoryLevel1Id=#{goods.tegoryLevel1Id},
-		,tegoryLevel2Id=#{goods.tegoryLevel2Id},tegoryLevel3Id=#{goods.tegoryLevel3Id},photo=#{goods.photo}
+		sum_back=#{goods.sumBack},shop_id=#{goods.shopId},categoryLevel1Id=#{goods.categorylevel1id},
+		,categoryLevel2Id=#{goods.categorylevel2id},categoryLevel3Id=#{goods.categorylevel3id},photo=#{goods.photo}
 		where good_id=#{goods.goodId}
 	</update>
 
