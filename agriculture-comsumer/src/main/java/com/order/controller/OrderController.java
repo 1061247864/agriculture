@@ -2,6 +2,8 @@ package com.order.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageInfo;
 import com.order.service.OrderClientService;
 import com.pojo.Order;
+import com.pojo.OrderItem;
 
 @RestController
 @RequestMapping("/order")
@@ -46,5 +49,14 @@ public class OrderController {
 		return 1;
 	}
 
+	@PostMapping("createOrderByShopCart")
+	public Order createOrder(@RequestParam("shopcId") Integer shopcId) {
+		return orderClientService.createOrder(shopcId);
+	}
+	
+	@PostMapping("createOrderByGoodId")
+	public Order createOrderByGoodId(OrderItem orderItem) {
+		return orderClientService.createOrderByGoodId(orderItem);
+	}
 	
 }

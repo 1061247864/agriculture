@@ -10,7 +10,7 @@ public class ShopCart {
 
     private Integer userId;
 
-    private String priceCount;
+    private Double priceCount;
     
     private List<ShopcItem> shopcItem;
     
@@ -49,11 +49,12 @@ public class ShopCart {
         this.userId = userId;
     }
 
-    public String getPriceCount() {
-        return priceCount;
-    }
+	public Double getPriceCount() {
+		return priceCount;
+	}
 
-    public void setPriceCount(String priceCount) {
-        this.priceCount = priceCount == null ? null : priceCount.trim();
-    }
+	public void setPriceCount(Double priceCount) {
+		this.priceCount = priceCount;
+	}
+
 }

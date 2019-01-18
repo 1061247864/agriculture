@@ -1,11 +1,9 @@
 package com.order.service;
 
 
-import java.util.List;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pojo.ShopCart;
@@ -21,7 +19,7 @@ public interface ShopCartClientService {
 	public ShopCart getShopCartById(ShopCart shopCart);
 	
 	@PostMapping("shopCart/updShopcItem")
-	public ShopCart updShopcItem(ShopcItem shopcItem,@RequestParam("shopcId")Integer shopcId);
+	public ShopCart updShopcItem(ShopcItem shopcItem,@RequestParam("shopcId")Integer shopcId,@RequestParam("countPrice")double countPrice);
 	
 	@PostMapping("shopCart/delCartItems")
 	public ShopCart delCartItems(ShopcItemVo shopcItemVo,@RequestParam("shopcId")Integer shopcId);

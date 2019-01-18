@@ -1,6 +1,7 @@
 package com.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class Order {
@@ -17,9 +18,29 @@ public class Order {
     
     private User user;
     
+    private List<OrderItem> orderItemList;
+    
+    private String address;
+    
     
 
-    public Order() {
+    public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public List<OrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(List<OrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
+	public Order() {
 		super();
 	}
 

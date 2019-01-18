@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.OrderMapper">
   <resultMap id="BaseResultMap" type="com.pojo.Order">
-    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <id column="oid" jdbcType="INTEGER" property="orderId" />
     <result column="ouid" jdbcType="INTEGER" property="userId" />
-    <result column="count_Price" jdbcType="VARCHAR" property="countPrice" />
+    <result column="count_Price" jdbcType="DOUBLE" property="countPrice" />
     <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
     <association property="user" javaType="user">
     <id column="uid" jdbcType="INTEGER" property="userId" />
     <result column="user_code" jdbcType="VARCHAR" property="userCode" />
@@ -17,6 +18,32 @@
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="image" jdbcType="VARCHAR" property="image" />
     </association>
+    <collection property="orderItemList" ofType="orderItem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="oioid" jdbcType="INTEGER" property="orderId" />
+    <result column="ogid" jdbcType="INTEGER" property="goodId" />
+    <result column="count_Price" jdbcType="DOUBLE" property="countPrice" />
+    <result column="good_number" jdbcType="INTEGER" property="goodNumber" />
+    <association property="goods" javaType="goods">
+    <id column="gid" jdbcType="INTEGER" property="goodId" />
+		<result column="good_name" jdbcType="VARCHAR"
+	property="goodName" />
+	<result column="status" jdbcType="INTEGER" property="status" />
+	<result column="price" jdbcType="DOUBLE" property="price" />
+	<result column="company" jdbcType="VARCHAR" property="company" />
+	<result column="context" jdbcType="VARCHAR" property="context" />
+	<result column="sum" jdbcType="INTEGER" property="sum" />
+	<result column="sum_back" jdbcType="INTEGER" property="sumBack" />
+	<result column="shop_id" jdbcType="INTEGER" property="shopId" />
+	<result column="categoryLevel1Id" jdbcType="INTEGER"
+		property="categorylevel1id" />
+	<result column="categoryLevel2Id" jdbcType="INTEGER"
+		property="categorylevel2id" />
+	<result column="categoryLevel3Id" jdbcType="INTEGER"
+		property="categorylevel3id" />
+	<result column="photo" jdbcType="VARCHAR" property="photo" />
+    </association>
+    </collection>
   </resultMap>
   <!-- <sql id="Example_Where_Clause">
     <where>
@@ -94,10 +121,19 @@
     </if>
   </select> -->
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from order
-    where order_id = #{orderId,jdbcType=INTEGER}
+	SELECT
+	o.`order_id` oid,o.`count_Price`,o.`createDate`,o.`status`,o.`user_id` ouid,o.`address`,
+	u.`user_id`
+	uid,u.`user_code`,u.`email`,u.`phone`,u.`age`,u.`sex`,u.`user_name`,u.`image`,
+	oi.`id`,oi.`order_id` oioid,oi.`good_id`
+	ogid,oi.`count_Price`,oi.`good_number`,
+	g.`good_id`
+	gid,g.`good_name`,g.`status`,g.`price`,g.`company`,g.`context`,g.`sum`,g.`sum_back`,g.`shop_id`,g.`categoryLevel1Id`,g.`categoryLevel2Id`,g.`categoryLevel3Id`,g.`photo`
+	FROM `order` o,`user` u,`order_item` oi,`goods` g
+	WHERE o.`user_id`=u.`user_id`
+	AND o.`order_id`=oi.`order_id`
+	AND oi.`good_id`=g.`good_id`
+	AND o.`order_id`=#{orderId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from `order`
@@ -116,6 +152,9 @@
       #{createdate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.pojo.Order">
+  <selectKey keyProperty="orderId" resultType="java.lang.Integer" order="AFTER">
+  SELECT LAST_INSERT_Id();
+  </selectKey>
     insert into `order`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -133,6 +172,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="address != null">
+        address,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -142,13 +184,16 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="countPrice != null">
-        #{countPrice,jdbcType=VARCHAR},
+        #{countPrice},
       </if>
       <if test="1==1">
         NOW(),
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -207,6 +252,9 @@
       <if test="status != null">
         `status` = #{status},
       </if>
+      <if test="address != null">
+        `address` = #{address},
+      </if>
     </set>
     where order_id = #{orderId}
   </update>
@@ -224,10 +272,22 @@
   <!-- getOrderList  获取订单 -->
   <select id="getOrderList" parameterType="order" resultMap="BaseResultMap">
     select
-    o.`order_id`,o.`count_Price`,o.`createDate`,o.`status`,o.`user_id` ouid,
+    o.`order_id` oid,o.`count_Price`,o.`createDate`,o.`status`,o.`user_id` ouid,o.address
 	u.`user_id` uid,u.`user_code`,u.`email`,u.`phone`,u.`age`,u.`sex`,u.`user_name`,u.`image`
     from `order` o,`user` u
     WHERE o.`user_id`=u.`user_id`
+	<!-- SELECT
+	o.`order_id` oid,o.`count_Price`,o.`createDate`,o.`status`,o.`user_id` ouid,
+	u.`user_id`
+	uid,u.`user_code`,u.`email`,u.`phone`,u.`age`,u.`sex`,u.`user_name`,u.`image`,
+	oi.`id`,oi.`order_id` oioid,oi.`good_id`
+	ogid,oi.`count_Price`,oi.`good_number`,
+	g.`good_id`
+	gid,g.`good_name`,g.`status`,g.`price`,g.`company`,g.`context`,g.`sum`,g.`sum_back`,g.`shop_id`,g.`categoryLevel1Id`,g.`categoryLevel2Id`,g.`categoryLevel3Id`,g.`photo`
+	FROM `order` o,`user` u,`order_item` oi,`goods` g
+	WHERE o.`user_id`=u.`user_id`
+	AND o.`order_id`=oi.`order_id`
+	AND oi.`good_id`=g.`good_id` -->
     <if test="order.orderId != null and order.orderId != 0 ">
     and o.`order_id` = #{order.orderId}
     </if>
@@ -247,6 +307,8 @@
   <update id="updatesorder" >
     update `order` set status = #{idvalue} where order_id = #{id}
   </update>
+  
+  
   
   
 </mapper>

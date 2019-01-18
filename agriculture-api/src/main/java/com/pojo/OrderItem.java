@@ -10,8 +10,21 @@ public class OrderItem {
     private String countPrice;
 
     private Integer goodNumber;
+    
+    
+    private Goods goods;
+    
+    
 
-    public Integer getId() {
+    public Goods getGoods() {
+		return goods;
+	}
+
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+
+	public Integer getId() {
         return id;
     }
 
