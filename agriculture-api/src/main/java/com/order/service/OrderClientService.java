@@ -2,11 +2,13 @@ package com.order.service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
 import com.pojo.Order;
+import com.pojo.OrderItem;
 
 @FeignClient("ORDERPROVIDER")
 public interface OrderClientService {
@@ -27,5 +29,11 @@ public interface OrderClientService {
 
 	@RequestMapping("order/updatesorder")
 	int updatesorder(@RequestParam(value = "orderId") Integer orderId, @RequestParam(value = "status") Integer status);
+	
+	@PostMapping("order/createOrderByShopCart")
+	public Order createOrder(@RequestParam("shopcId") Integer shopcId);
+	
+	@PostMapping("order/createOrderByGoodId")
+	public Order createOrderByGoodId(OrderItem orderItem);
 
 }
